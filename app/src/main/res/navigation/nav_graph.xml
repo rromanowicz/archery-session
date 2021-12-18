@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/MainFragment">
+
+    <fragment
+        android:id="@+id/MainFragment"
+        android:name="ex.rr.archerysession.MainFragment"
+        android:label="@string/main_fragment_label"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_MainFragment_to_NewSessionFragment"
+            app:destination="@id/NewSessionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/NewSessionFragment"
+        android:name="ex.rr.archerysession.NewSessionFragment"
+        android:label="@string/new_session_fragment_label"
+        tools:layout="@layout/fragment_new_session">
+
+        <action
+            android:id="@+id/action_NewSessionFragment_to_MainFragment"
+            app:destination="@id/MainFragment" />
+
+        <action
+            android:id="@+id/action_NewSessionFragment_to_AddScoresFragment"
+            app:destination="@id/AddScoresFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/HistoryFragment"
+        android:name="ex.rr.archerysession.HistoryFragment"
+        android:label="@string/history_fragment_label"
+        tools:layout="@layout/fragment_history">
+
+        <action
+            android:id="@+id/action_NewSessionFragment_to_MainFragment"
+            app:destination="@id/MainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddScoresFragment"
+        android:name="ex.rr.archerysession.AddScoresFragment"
+        android:label="@string/add_scores_fragment_label"
+        tools:layout="@layout/fragment_add_scores">
+    </fragment>
+
+    <action
+        android:id="@+id/to_MainFragment"
+        app:destination="@id/MainFragment" />
+
+    <action
+        android:id="@+id/to_NewSessionFragment"
+        app:destination="@id/NewSessionFragment" />
+
+    <action
+        android:id="@+id/to_HistoryFragment"
+        app:destination="@id/HistoryFragment" />
+
+    <action
+        android:id="@+id/to_AddScoresFragment"
+        app:destination="@id/AddScoresFragment" />
+
+</navigation>
