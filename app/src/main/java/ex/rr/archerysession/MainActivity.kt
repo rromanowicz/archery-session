@@ -2,12 +2,17 @@ package ex.rr.archerysession
 
 import android.animation.Animator
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.microsoft.appcenter.AppCenter
+import com.microsoft.appcenter.analytics.Analytics
+import com.microsoft.appcenter.crashes.Crashes
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.ActivityMainBinding
 
@@ -20,6 +25,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        AppCenter.start(
+            application, "b81c7307-434c-4fa1-bdb8-4ad3e0402838",
+            Analytics::class.java, Crashes::class.java
+        )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -93,7 +103,6 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

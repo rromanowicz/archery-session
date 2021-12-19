@@ -39,7 +39,7 @@ class AddScoresFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         setupClickListeners(view)
     }
 
@@ -53,7 +53,9 @@ class AddScoresFragment : DialogFragment() {
 
     private fun setupClickListeners(view: View) {
         view.findViewById<Button>(R.id.submitButton).setOnClickListener {
-            viewModel.sendScores(scores)
+            if(scores.isNotEmpty()) {
+                viewModel.sendScores(scores)
+            }
             dismiss()
         }
 
@@ -98,7 +100,7 @@ class AddScoresFragment : DialogFragment() {
     private fun updateScore() {
         totalScore = scores.sumOf { it }
         shots = scores.size
-        outputTextView = scores.toString() // plus( if(shots==0) score else ", $score")
+        outputTextView = scores.toString()
         view?.findViewById<TextView>(R.id.scoresText1)?.text = ("Shots: [$shots] Score: [$totalScore]")
         view?.findViewById<TextView>(R.id.scoresText2)?.text = ("$scores")
 
