@@ -29,4 +29,13 @@
     <string name="_9">9</string>
     <string name="_10">10</string>
     <string name="insert_scores">End scores:</string>
+    <string name="session_time_label">Session Time:</string>
+    <string name="session_time_val_label">00:00:00</string>
+    <string name="id_label">ID:</string>
+    <string name="start_date_label">Start Date:</string>
+    <string name="end_date_label">End Date:</string>
+    <string name="ends_label">Ends:</string>
+    <string name="arrows_label">Arrows:</string>
+    <string name="details_label">Details:</string>
+    <string name="last_session_label">Last Session</string>
 </resources>

@@ -73,7 +73,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:orientation="vertical" />
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/endsText"
+                android:textSize="@dimen/mainTexTSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
@@ -101,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="Session Time: "
+                android:text="@string/session_time_label"
                 android:textSize="20sp" />
 
             <TextView
@@ -109,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="00:00:00"
+                android:text="@string/session_time_val_label"
                 android:textSize="20sp" />
 
         </LinearLayout>

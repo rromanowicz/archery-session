@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class SharedViewModel : ViewModel() {
-    val scores = MutableLiveData<MutableList<Int>>()
+    var scores = MutableLiveData<MutableList<Int>?>()
 
-    fun sendScores(values: MutableList<Int>){
-        Log.e("ViewModel", values.toString())
+    fun sendScores(values: MutableList<Int>) {
+        Log.e("ViewModel", values.toString()) //TODO: remove
         scores.value = values
+    }
+
+    fun clear() {
+        scores.value?.clear()
     }
 }
