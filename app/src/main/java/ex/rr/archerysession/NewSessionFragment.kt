@@ -1,6 +1,5 @@
 package ex.rr.archerysession
 
-
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -19,7 +18,6 @@ import com.rr.archerysession.databinding.FragmentNewSessionBinding
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
-
 class NewSessionFragment : Fragment() {
 
     private var _binding: FragmentNewSessionBinding? = null
@@ -33,30 +31,14 @@ class NewSessionFragment : Fragment() {
     private var handler: Handler? = null
     private var runnable: Runnable? = null
 
-    private var ends = 0
-    private var arrows = 0
-    private lateinit var endScores: MutableList<MutableList<Int>>
     private lateinit var endsView: LinearLayout
-    private var endCounter = 0
+    private lateinit var session: Session
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        endScores = mutableListOf()
-
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        sharedViewModel.scores.observe(requireActivity(), Observer {
-            Log.e("OBSERVER", it.toString())
-            endScores.add(it)
-            updateResults()
-
-            val textView = TextView(context)
-            textView.textSize = 20f
-            textView.text = ("$endCounter: Shots: ${it.size}, Total score: ${it.sumOf { it1 -> it1 }}\n\t\t\t$it")
-
-            endsView.addView(textView)
-        })
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             if (!sessionRunning) {
@@ -69,14 +51,19 @@ class NewSessionFragment : Fragment() {
     }
 
     private fun updateResults() {
-        endCounter++
-        ends = endScores.size
-        arrows = endScores.sumOf { it.size }
-        binding.endsValue.text = "$ends"
-        binding.arrowsValue.text = "$arrows"
+        binding.endsValue.text = session.ends.toString()
+        binding.arrowsValue.text = session.arrows.toString()
         binding.endsScrollView.post {
             binding.endsScrollView.fullScroll(View.FOCUS_DOWN)
         }
+
+
+        val lastEnd = session.scores[session.scores.lastIndex]
+        val textView = TextView(context)
+        textView.textSize = 20f
+        textView.text =
+            ("${session.ends}: Shots: ${lastEnd.size}, Total score: ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd")
+        endsView.addView(textView)
     }
 
     override fun onCreateView(
@@ -102,8 +89,14 @@ class NewSessionFragment : Fragment() {
         sessionTime = binding.sessionTimeValue
 
         binding.addEndScores.setOnClickListener {
-            AddScoresFragment().show(parentFragmentManager , AddScoresFragment.TAG)
+            AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
         }
+
+        sharedViewModel.scores.observe(requireActivity(), Observer {
+            Log.e("OBSERVER", it.toString())
+            session.addEndScores(it)
+            updateResults()
+        })
 
     }
 
@@ -113,6 +106,7 @@ class NewSessionFragment : Fragment() {
     }
 
     private fun sessionStart() {
+        session = Session()
         sessionRunning = true
         setView()
         runBlocking { timer() }
@@ -120,6 +114,8 @@ class NewSessionFragment : Fragment() {
     }
 
     private fun sessionEnd() {
+        session.endSession()
+        Log.e("SCORES", session.getJSON())
         sessionRunning = false
         setView()
     }
@@ -175,8 +171,6 @@ class NewSessionFragment : Fragment() {
             binding.buttonEnd.isClickable = false
         }
     }
-
-
 
 
 }
