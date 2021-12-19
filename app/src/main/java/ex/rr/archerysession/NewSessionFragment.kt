@@ -2,6 +2,7 @@ package ex.rr.archerysession
 
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
 import ex.rr.archerysession.data.Session
 import ex.rr.archerysession.db.DBHelper
+import ex.rr.archerysession.file.SaveFile
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -115,6 +117,7 @@ class NewSessionFragment : Fragment() {
             val sessionId = db.addSession(session)
             Log.e("DB_SAVE", sessionId.toString())
             Log.e("SCORES", session.getJSON()) //TODO: remove
+            SaveFile().saveToFile(sessionId, session)
         }
         sharedViewModel.clear()
         sessionRunning = false
