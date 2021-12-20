@@ -10,7 +10,7 @@ class SaveFile {
         val dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
         val sessionFile = File(dir, FILE_NAME)
         if(sessionFile.exists()) {
-            sessionFile.appendText("\n" +id.toString() + ", " + content.getJSON())
+            sessionFile.appendText("\n{\"sessionId\": $id, sessionDetails: ${content.getJSON()} }")
         } else {
             sessionFile.createNewFile()
             sessionFile.writeText(id.toString() + ", " + content.getJSON())
