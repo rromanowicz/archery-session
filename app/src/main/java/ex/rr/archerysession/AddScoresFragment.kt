@@ -20,7 +20,6 @@ class AddScoresFragment : DialogFragment() {
     private var totalScore = 0
     private var outputTextView = ""
 
-
     companion object {
         const val TAG = "AddScoresFragment"
     }
@@ -32,14 +31,14 @@ class AddScoresFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        scores = mutableListOf()
-        updateScore()
         return inflater.inflate(R.layout.fragment_add_scores, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        scores = mutableListOf()
+        updateScore()
         setupClickListeners(view)
     }
 
@@ -53,7 +52,7 @@ class AddScoresFragment : DialogFragment() {
 
     private fun setupClickListeners(view: View) {
         view.findViewById<Button>(R.id.submitButton).setOnClickListener {
-            if(scores.isNotEmpty()) {
+            if (scores.isNotEmpty()) {
                 viewModel.sendScores(scores)
             }
             dismiss()
@@ -87,7 +86,8 @@ class AddScoresFragment : DialogFragment() {
             removeScore()
         }
     }
-    private fun addScore(score: Int){
+
+    private fun addScore(score: Int) {
         scores.add(score)
         updateScore()
     }
@@ -101,7 +101,8 @@ class AddScoresFragment : DialogFragment() {
         totalScore = scores.sumOf { it }
         shots = scores.size
         outputTextView = scores.toString()
-        view?.findViewById<TextView>(R.id.scoresText1)?.text = ("Shots: [$shots] Score: [$totalScore]")
+        view?.findViewById<TextView>(R.id.scoresText1)?.text =
+            ("Shots: [$shots] Score: [$totalScore]")
         view?.findViewById<TextView>(R.id.scoresText2)?.text = ("$scores")
 
     }

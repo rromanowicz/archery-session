@@ -36,10 +36,17 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return this.readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME", null)
     }
 
-    fun getXSessions(numberOfRows: String, offset: String= "0"): Cursor? {
+    fun getXSessions(numberOfRows: String, offset: String = "0"): Cursor? {
         return this.readableDatabase.rawQuery(
             "SELECT * FROM $TABLE_NAME ORDER BY $ID_COL DESC LIMIT ? OFFSET ?",
             arrayOf(numberOfRows, offset)
+        )
+    }
+
+    fun getSessionById(id: String): Cursor? {
+        return this.readableDatabase.rawQuery(
+            "SELECT * FROM $TABLE_NAME WHERE $ID_COL=?",
+            arrayOf(id)
         )
     }
 
