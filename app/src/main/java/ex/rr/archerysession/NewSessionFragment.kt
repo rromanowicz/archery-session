@@ -2,7 +2,6 @@ package ex.rr.archerysession
 
 import android.content.res.ColorStateList
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
@@ -34,7 +33,7 @@ class NewSessionFragment : Fragment() {
     private var runnable: Runnable? = null
 
     private lateinit var sharedViewModel: SharedViewModel
-    private lateinit var session: Session
+    private var session: Session? = null
     private lateinit var endsView: LinearLayout
 
 
@@ -63,6 +62,7 @@ class NewSessionFragment : Fragment() {
         }
 
         session = Session()
+
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         endsView = binding.endsView
@@ -83,26 +83,26 @@ class NewSessionFragment : Fragment() {
         sharedViewModel.scores.observe(requireActivity(), Observer {
             Log.e("OBSERVER", it.toString()) //TODO: remove
             if (it != null && it.isNotEmpty()) {
-                session.addEndScores(it)
+                session!!.addEndScores(it)
                 updateResults()
             }
         })
-
     }
 
     private fun updateResults() {
-        binding.endsValue.text = session.ends.toString()
-        binding.arrowsValue.text = session.arrows.toString()
+        binding.endsValue.text = session!!.ends.toString()
+        binding.arrowsValue.text = session!!.arrows.toString()
         binding.endsScrollView.post {
             binding.endsScrollView.fullScroll(View.FOCUS_DOWN)
         }
 
-        val lastEnd = session.scores[session.scores.lastIndex]
+        val lastEnd = session!!.scores[session!!.scores.lastIndex]
 
-        binding.endsText.append("${session.ends}: Shots: ${lastEnd.size}, Total score: ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n")
+        binding.endsText.append("${session!!.ends}: Shots: ${lastEnd.size}, Total score: ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n")
     }
 
     private fun sessionStart() {
+        if (session == null) { session = Session::class.java.newInstance() }
         binding.endsText.text = ""
         sessionRunning = true
         setView()
@@ -111,19 +111,19 @@ class NewSessionFragment : Fragment() {
     }
 
     private fun sessionEnd() {
-        session.endSession()
-        if (session.arrows != 0) {
+        session!!.endSession()
+        if (session!!.arrows != 0) {
             val db = DBHelper(requireContext(), null)
-            val sessionId = db.addSession(session)
+            val sessionId = db.addSession(session!!)
             Log.e("DB_SAVE", sessionId.toString())
-            Log.e("SCORES", session.getJSON()) //TODO: remove
-            SaveFile().saveToFile(sessionId, session)
+            Log.e("SCORES", session!!.getJSON()) //TODO: remove
+            SaveFile().saveToFile(sessionId, session!!)
         }
+        session = null
         sharedViewModel.clear()
         sessionRunning = false
         setView()
     }
-
 
     private fun timer() {
         val startDate = Date()
@@ -157,7 +157,7 @@ class NewSessionFragment : Fragment() {
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.GONE
             binding.addEndScoreLayout.visibility = View.VISIBLE
             binding.buttonStart.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.inactive));
+                ColorStateList.valueOf(resources.getColor(R.color.inactive))
             binding.buttonStart.isClickable = false
             binding.buttonEnd.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
@@ -170,7 +170,7 @@ class NewSessionFragment : Fragment() {
                 ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
             binding.buttonStart.isClickable = true
             binding.buttonEnd.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.inactive));
+                ColorStateList.valueOf(resources.getColor(R.color.inactive))
             binding.buttonEnd.isClickable = false
         }
     }
