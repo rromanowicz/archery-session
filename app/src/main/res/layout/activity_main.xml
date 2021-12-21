@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/child_fab_margin"
-        android:layout_marginBottom="@dimen/standard_23"
+        android:layout_marginBottom="@dimen/fab_3rd_child_Margin_bottom"
         android:clipToPadding="false"
         android:gravity="center_vertical"
         android:padding="@dimen/standard_12"
@@ -52,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:fabCustomSize="@dimen/fab_child_size"
             app:fabSize="mini"
             app:srcCompat="@android:drawable/ic_input_add" />
     </LinearLayout>
@@ -62,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/child_fab_margin"
-        android:layout_marginBottom="@dimen/standard_23"
+        android:layout_marginBottom="@dimen/fab_2nd_child_Margin_bottom"
         android:clipToPadding="false"
         android:gravity="center_vertical"
         android:padding="@dimen/standard_12"
@@ -78,6 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            app:fabCustomSize="@dimen/fab_child_size"
             app:fabSize="mini"
             app:srcCompat="?android:attr/actionModeFindDrawable" />
     </LinearLayout>
@@ -89,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/child_fab_margin"
-        android:layout_marginBottom="@dimen/standard_23"
+        android:layout_marginBottom="@dimen/fab_1st_child_Margin_bottom"
         android:clipToPadding="false"
         android:gravity="center_vertical"
         android:padding="@dimen/standard_12"
@@ -106,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:tint="@android:color/white"
+            app:fabCustomSize="@dimen/fab_child_size"
             app:fabSize="mini"
             app:srcCompat="@android:drawable/ic_dialog_info" />
     </LinearLayout>
@@ -117,8 +120,7 @@
         android:layout_gravity="bottom|end"
         android:clipToPadding="false"
         android:gravity="center_vertical"
-        android:padding="@dimen/standard_12"
-        >
+        android:padding="@dimen/standard_6">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -127,6 +129,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:gravity="center_vertical"
+            app:fabCustomSize="@dimen/fab_parent_size"
             app:srcCompat="@android:drawable/ic_dialog_dialer"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
