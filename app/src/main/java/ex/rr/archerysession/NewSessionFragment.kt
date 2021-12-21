@@ -81,7 +81,7 @@ class NewSessionFragment : Fragment() {
         }
 
         sharedViewModel.scores.observe(requireActivity(), Observer {
-            Log.e("OBSERVER", it.toString()) //TODO: remove
+            Log.d(this::class.java.name, "Received scores from dialog.")
             if (it != null && it.isNotEmpty()) {
                 session!!.addEndScores(it)
                 updateResults()
@@ -117,8 +117,7 @@ class NewSessionFragment : Fragment() {
         if (session!!.arrows != 0) {
             val db = DBHelper(requireContext(), null)
             val sessionId = db.addSession(session!!)
-            Log.e("DB_SAVE", sessionId.toString())
-            Log.e("SCORES", session!!.getJSON()) //TODO: remove
+            Log.d(this::class.java.name, "Saved session with id: $sessionId")
             FileProcessor().saveToFile(sessionId, session!!)
         }
         session = null

@@ -9,7 +9,6 @@ import android.util.Log
 import com.google.gson.Gson
 import ex.rr.archerysession.data.DbSession
 import ex.rr.archerysession.data.Session
-import java.lang.Exception
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -50,32 +49,38 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return savedItems
     }
 
-    fun getAllSessions(): Cursor? {
-        return this.readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME", null)
-    }
-
-    fun getXSessions(numberOfRows: String, offset: String = "0"): Cursor? {
-        return this.readableDatabase.rawQuery(
-            "SELECT * FROM $TABLE_NAME ORDER BY $ID_COL DESC LIMIT ? OFFSET ?",
-            arrayOf(numberOfRows, offset)
+    fun getAllSessions(): MutableList<DbSession> {
+        return toDbSessionList(
+            this.readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME", null)
         )
     }
 
-    fun getSessionById(id: String): Cursor? {
-        return this.readableDatabase.rawQuery(
-            "SELECT * FROM $TABLE_NAME WHERE $ID_COL=?",
-            arrayOf(id)
+    fun getXSessions(numberOfRows: String, offset: String = "0"): MutableList<DbSession> {
+        return toDbSessionList(
+            this.readableDatabase.rawQuery(
+                "SELECT * FROM $TABLE_NAME ORDER BY $ID_COL DESC LIMIT ? OFFSET ?",
+                arrayOf(numberOfRows, offset)
+            )
         )
     }
 
-    fun toDbSessionList(cursor: Cursor?): MutableList<DbSession>{
+    fun getSessionById(id: String): MutableList<DbSession> {
+        return toDbSessionList(
+            this.readableDatabase.rawQuery(
+                "SELECT * FROM $TABLE_NAME WHERE $ID_COL=?",
+                arrayOf(id)
+            )
+        )
+    }
+
+    private fun toDbSessionList(cursor: Cursor?): MutableList<DbSession> {
         val sessionList: MutableList<DbSession> = mutableListOf()
-        if(cursor != null) {
+        if (cursor != null) {
             while (cursor.moveToNext()) {
                 try {
-                    val idIndex = cursor.getColumnIndex(DBHelper.ID_COL)
+                    val idIndex = cursor.getColumnIndex(ID_COL)
                     val id = cursor.getLong(idIndex)
-                    val jsonIndex = cursor.getColumnIndex(DBHelper.SESSION_COl)
+                    val jsonIndex = cursor.getColumnIndex(SESSION_COl)
                     val sessionJson = cursor.getString(jsonIndex)
                     val session = Gson().fromJson(sessionJson, Session::class.java)
                     sessionList.add(DbSession(id, session))
@@ -84,15 +89,18 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 }
             }
         }
-        Log.d(this::class.java.canonicalName, "Retrieved ${sessionList.size} records data from database.")
+        Log.d(
+            this::class.java.canonicalName,
+            "Retrieved ${sessionList.size} records from database."
+        )
         return sessionList
     }
 
     companion object {
         private const val DATABASE_NAME = "ARCHERY_SESSIONS"
         private const val DATABASE_VERSION = 1
-        const val TABLE_NAME = "sessions"
-        const val ID_COL = "id"
-        const val SESSION_COl = "session_json"
+        private const val TABLE_NAME = "sessions"
+        private const val ID_COL = "id"
+        private const val SESSION_COl = "session_json"
     }
 }
