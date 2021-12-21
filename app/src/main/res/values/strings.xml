@@ -38,4 +38,5 @@
     <string name="arrows_label">Arrows:</string>
     <string name="details_label">Details:</string>
     <string name="last_session_label">Last Session</string>
+    <string name="submit">Submit</string>
 </resources>
