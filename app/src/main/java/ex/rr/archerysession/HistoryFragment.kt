@@ -2,7 +2,6 @@ package ex.rr.archerysession
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,9 +15,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-/**
- * A fragment representing a list of Items.
- */
 class HistoryFragment : Fragment() {
 
     private lateinit var viewModel: SharedViewModel
@@ -39,15 +35,12 @@ class HistoryFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        val parent = view.findViewById(R.id.historyScrollView) as ViewGroup
-
+//        val parent = view.findViewById(R.id.historyLayout) as ViewGroup
 
         val db = DBHelper(requireContext(), null)
         val last10Sessions = db.getXSessions(NO_OF_SESSIONS, "0")
 
-        Log.e(this::class.java.name, last10Sessions.size.toString())
-
-        last10Sessions.forEach { it ->
+        last10Sessions.forEach {
             val historyItem: View = inflater.inflate(R.layout.history_item, null)
             historyItem.findViewById<TextView>(R.id.idValue).text = it.id.toString()
             historyItem.findViewById<TextView>(R.id.dateValue).text =
@@ -57,13 +50,18 @@ class HistoryFragment : Fragment() {
             historyItem.findViewById<TextView>(R.id.avgArrowValue).text =
                 it.session.scores.sumOf { t -> t.sumOf { x -> x } }.div(it.session.arrows)
                     .toString()
+
+            val id = it.id
+            historyItem.setOnClickListener {
+                SessionDetailsFragment(id).show(childFragmentManager, SessionDetailsFragment.TAG)
+            }
             binding.historyScrollView.addView(historyItem)
 
         }
     }
 
     companion object {
-        const val NO_OF_SESSIONS: String = "20"
+        const val NO_OF_SESSIONS: String = "10"
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     }
 }

@@ -36,7 +36,7 @@ class MainFragment : Fragment() {
         val db = DBHelper(requireContext(), null)
         val lastSession = db.getXSessions("1")[0]
 
-        val sessionDetails: View = inflater.inflate(R.layout.session_details, null)
+        val sessionDetails: View = inflater.inflate(R.layout.fragment_session_details, null)
         sessionDetails.findViewById<TextView>(R.id.sessionId).text = lastSession.id.toString()
         sessionDetails.findViewById<TextView>(R.id.startDate).text =
             formatter.format(lastSession.session.startDate)
