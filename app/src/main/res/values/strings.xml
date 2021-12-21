@@ -38,4 +38,8 @@
     <string name="arrows_label">Arrows:</string>
     <string name="details_label">Details:</string>
     <string name="last_session_label">Last Session</string>
+    <string name="submit">Submit</string>
+    <string name="date">Date: </string>
+    <string name="dummy">###</string>
+    <string name="avg_arrow">Avg Points: </string>
 </resources>

@@ -1,62 +1,67 @@
 package ex.rr.archerysession
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
-import ex.rr.archerysession.placeholder.PlaceholderContent
+import com.rr.archerysession.databinding.FragmentHistoryBinding
+import ex.rr.archerysession.db.DBHelper
+import java.text.SimpleDateFormat
+import java.util.*
 
-/**
- * A fragment representing a list of Items.
- */
+
 class HistoryFragment : Fragment() {
 
-    private var columnCount = 1
+    private lateinit var viewModel: SharedViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
+    private var _binding: FragmentHistoryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_history_list, container, false)
+    ): View {
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+
+        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val parent = view.findViewById(R.id.historyLayout) as ViewGroup
+
+        val db = DBHelper(requireContext(), null)
+        val last10Sessions = db.getXSessions(NO_OF_SESSIONS, "0")
+
+        last10Sessions.forEach {
+            val historyItem: View = inflater.inflate(R.layout.history_item, null)
+            historyItem.findViewById<TextView>(R.id.idValue).text = it.id.toString()
+            historyItem.findViewById<TextView>(R.id.dateValue).text =
+                formatter.format(it.session.startDate)
+            historyItem.findViewById<TextView>(R.id.endsValue).text = it.session.ends.toString()
+            historyItem.findViewById<TextView>(R.id.arrowsValue).text = it.session.arrows.toString()
+            historyItem.findViewById<TextView>(R.id.avgArrowValue).text =
+                it.session.scores.sumOf { t -> t.sumOf { x -> x } }.div(it.session.arrows)
+                    .toString()
+
+            val id = it.id
+            historyItem.setOnClickListener {
+                SessionDetailsFragment(id).show(childFragmentManager, SessionDetailsFragment.TAG)
             }
+            binding.historyScrollView.addView(historyItem)
+
         }
-        return view
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            HistoryFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        const val NO_OF_SESSIONS: String = "10"
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     }
 }

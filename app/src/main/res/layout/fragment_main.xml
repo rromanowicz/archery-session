@@ -1,133 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ex.rr.archerysession.MainFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/last_session_label"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="@dimen/mainTexTSize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/sessionIdLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/id_label"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/startDateLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/start_date_label"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/endDateLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/end_date_label"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/endCountLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ends_label"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/arrowCountLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/arrows_label"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/detailsLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/details_label"
-                android:textSize="@dimen/mainTexTSize" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/mainLinearLayout"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/sessionId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/startDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/endDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/endCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/arrowCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <TextView
-                android:id="@+id/details_v"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/mainTexTSize" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:id="@+id/mainScrollView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/last_session_label"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textSize="@dimen/mainTexTSize" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

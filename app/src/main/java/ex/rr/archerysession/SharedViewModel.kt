@@ -1,9 +1,7 @@
 package ex.rr.archerysession
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-//import ex.rr.archerysession.data.DbSession
 import ex.rr.archerysession.data.Session
 
 class SharedViewModel : ViewModel() {
@@ -13,7 +11,6 @@ class SharedViewModel : ViewModel() {
     var sessionId = MutableLiveData<String?>()
 
     fun sendScores(values: MutableList<Int>) {
-        Log.e("ViewModel", values.toString()) //TODO: remove
         scores.value = values
     }
 

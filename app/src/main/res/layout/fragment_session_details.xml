@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/session_details"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="@dimen/standard_12"
+    android:layout_marginTop="@dimen/standard_12"
+    android:layout_marginEnd="@dimen/standard_12"
+    android:layout_marginBottom="@dimen/standard_12"
+    android:gravity="center_horizontal|center_vertical"
+    tools:context="ex.rr.archerysession.SessionDetailsFragment">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/mainLayout"
+        android:layout_alignEnd="@+id/mainLayout"
+        android:layout_marginTop="-5dp"
+        android:layout_marginEnd="-5dp"
+        android:backgroundTint="@color/closeBtn"
+        android:background="@color/closeBtn"
+        android:visibility="gone"
+        app:fabCustomSize="@dimen/fab_close_size"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_close_clear_cancel" />
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sessionIdLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/id_label"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/startDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/start_date_label"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/endDateLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/end_date_label"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/endCountLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ends_label"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/arrowCountLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/arrows_label"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/avgArrowLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/avg_arrow"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/detailsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/details_label"
+                android:textSize="@dimen/mainTexTSize" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mainLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/sessionId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/startDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/endCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/avgArrowValue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/arrowCount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <TextView
+                android:id="@+id/details_v"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/mainTexTSize" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/mainScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

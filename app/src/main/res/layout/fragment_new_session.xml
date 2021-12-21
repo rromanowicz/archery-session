@@ -9,9 +9,9 @@
 
     <Button
         android:id="@+id/button_start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_23"
+        android:layout_width="@dimen/session_button_width"
+        android:layout_height="@dimen/session_button_height"
+        android:layout_marginTop="@dimen/standard_12"
         android:clickable="true"
         android:text="@string/start_session"
         app:layout_constraintEnd_toStartOf="@+id/button_end"
@@ -20,9 +20,9 @@
 
     <Button
         android:id="@+id/button_end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/standard_23"
+        android:layout_width="@dimen/session_button_width"
+        android:layout_height="@dimen/session_button_height"
+        android:layout_marginTop="@dimen/standard_12"
         android:backgroundTint="@color/inactive"
         android:clickable="false"
         android:text="@string/end_session"
@@ -38,7 +38,7 @@
         android:layout_gravity="bottom|end"
         android:clipToPadding="false"
         android:gravity="center_vertical"
-        android:padding="@dimen/standard_12"
+        android:padding="@dimen/standard_6"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -50,6 +50,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:gravity="center_vertical"
+            app:fabCustomSize="@dimen/fab_parent_size"
             app:srcCompat="@android:drawable/ic_input_add"
             tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>

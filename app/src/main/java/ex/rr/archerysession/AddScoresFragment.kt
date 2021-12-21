@@ -1,12 +1,8 @@
 package ex.rr.archerysession
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -51,40 +47,22 @@ class AddScoresFragment : DialogFragment() {
     }
 
     private fun setupClickListeners(view: View) {
-        view.findViewById<Button>(R.id.submitButton).setOnClickListener {
+        val submitButton = view.findViewById<Button>(R.id.submitButton)
+        submitButton.setOnClickListener {
+            submitButton.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (scores.isNotEmpty()) {
                 viewModel.sendScores(scores)
             }
             dismiss()
         }
 
-        view.findViewById<Button>(R.id.scoreButton_0).setOnClickListener {
-            addScore(0)
-        }
-
-        view.findViewById<Button>(R.id.scoreButton_6).setOnClickListener {
-            addScore(6)
-        }
-
-        view.findViewById<Button>(R.id.scoreButton_7).setOnClickListener {
-            addScore(7)
-        }
-
-        view.findViewById<Button>(R.id.scoreButton_8).setOnClickListener {
-            addScore(8)
-        }
-
-        view.findViewById<Button>(R.id.scoreButton_9).setOnClickListener {
-            addScore(9)
-        }
-
-        view.findViewById<Button>(R.id.scoreButton_10).setOnClickListener {
-            addScore(10)
-        }
-
-        view.findViewById<ImageButton>(R.id.scoreButton_delete).setOnClickListener {
-            removeScore()
-        }
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_0), ::addScore, 0)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_6), ::addScore, 6)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_7), ::addScore, 7)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_8), ::addScore, 8)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_9), ::addScore, 9)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_10), ::addScore, 10)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_delete), ::removeScore)
     }
 
     private fun addScore(score: Int) {
@@ -92,7 +70,7 @@ class AddScoresFragment : DialogFragment() {
         updateScore()
     }
 
-    private fun removeScore() {
+    private fun removeScore(dummy: Int = 0) {
         scores.removeLast()
         updateScore()
     }
@@ -104,7 +82,13 @@ class AddScoresFragment : DialogFragment() {
         view?.findViewById<TextView>(R.id.scoresText1)?.text =
             ("Shots: [$shots] Score: [$totalScore]")
         view?.findViewById<TextView>(R.id.scoresText2)?.text = ("$scores")
+    }
 
+    private fun addOnClickListener(view: View, func: (score: Int) -> Unit, value: Int = 0) {
+        view.setOnClickListener {
+            view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+            func(value)
+        }
     }
 
 }

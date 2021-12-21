@@ -18,9 +18,11 @@ data class Session(
 ) {
 
     fun addEndScores(scores: MutableList<Int>) {
-        this.ends++
-        this.arrows += scores.size
-        this.scores.add(scores)
+        if (scores.isNotEmpty()) {
+            this.ends++
+            this.arrows += scores.size
+            this.scores.add(scores)
+        }
     }
 
     fun endSession() {
