@@ -17,7 +17,7 @@ import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
 import ex.rr.archerysession.data.Session
 import ex.rr.archerysession.db.DBHelper
-import ex.rr.archerysession.file.SaveFile
+import ex.rr.archerysession.file.FileProcessor
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -102,7 +102,9 @@ class NewSessionFragment : Fragment() {
     }
 
     private fun sessionStart() {
-        if (session == null) { session = Session::class.java.newInstance() }
+        if (session == null) {
+            session = Session::class.java.newInstance()
+        }
         binding.endsText.text = ""
         sessionRunning = true
         setView()
@@ -117,7 +119,7 @@ class NewSessionFragment : Fragment() {
             val sessionId = db.addSession(session!!)
             Log.e("DB_SAVE", sessionId.toString())
             Log.e("SCORES", session!!.getJSON()) //TODO: remove
-            SaveFile().saveToFile(sessionId, session!!)
+            FileProcessor().saveToFile(sessionId, session!!)
         }
         session = null
         sharedViewModel.clear()

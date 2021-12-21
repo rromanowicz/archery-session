@@ -5,7 +5,11 @@ import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
+import com.google.gson.Gson
+import ex.rr.archerysession.data.DbSession
 import ex.rr.archerysession.data.Session
+import java.lang.Exception
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -32,6 +36,20 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return savedItemId
     }
 
+    fun addAll(sessions: MutableMap<Long, DbSession>): MutableList<Long> {
+        val savedItems: MutableList<Long> = mutableListOf()
+        val db = this.writableDatabase
+        sessions.forEach {
+            val values = ContentValues()
+            values.put(ID_COL, it.key)
+            values.put(SESSION_COl, it.value.session.getJSON())
+            val savedItemId = db.insert(TABLE_NAME, null, values)
+            savedItems.add(savedItemId)
+        }
+        db.close()
+        return savedItems
+    }
+
     fun getAllSessions(): Cursor? {
         return this.readableDatabase.rawQuery("SELECT * FROM $TABLE_NAME", null)
     }
@@ -48,6 +66,26 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             "SELECT * FROM $TABLE_NAME WHERE $ID_COL=?",
             arrayOf(id)
         )
+    }
+
+    fun toDbSessionList(cursor: Cursor?): MutableList<DbSession>{
+        val sessionList: MutableList<DbSession> = mutableListOf()
+        if(cursor != null) {
+            while (cursor.moveToNext()) {
+                try {
+                    val idIndex = cursor.getColumnIndex(DBHelper.ID_COL)
+                    val id = cursor.getLong(idIndex)
+                    val jsonIndex = cursor.getColumnIndex(DBHelper.SESSION_COl)
+                    val sessionJson = cursor.getString(jsonIndex)
+                    val session = Gson().fromJson(sessionJson, Session::class.java)
+                    sessionList.add(DbSession(id, session))
+                } catch (e: Exception) {
+                    Log.e(this::class.java.name, e.message!!)
+                }
+            }
+        }
+        Log.d(this::class.java.canonicalName, "Retrieved ${sessionList.size} records data from database.")
+        return sessionList
     }
 
     companion object {
