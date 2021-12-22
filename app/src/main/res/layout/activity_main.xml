@@ -32,106 +32,69 @@
 
     <LinearLayout
         android:id="@+id/fabLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/child_fab_margin"
         android:layout_marginBottom="@dimen/fab_3rd_child_Margin_bottom"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:padding="@dimen/standard_12"
-        android:visibility="gone">
+        style="@style/fabChildContainer">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/fabChildText"
             android:text="@string/action_new_session" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            app:fabCustomSize="@dimen/fab_child_size"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            style="@style/fabChild"
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:contentDescription="@string/action_new_session" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/fabLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/child_fab_margin"
         android:layout_marginBottom="@dimen/fab_2nd_child_Margin_bottom"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:padding="@dimen/standard_12"
-        android:visibility="gone">
+        style="@style/fabChildContainer">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/fabChildText"
             android:text="@string/action_history" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            app:fabCustomSize="@dimen/fab_child_size"
-            app:fabSize="mini"
-            app:srcCompat="?android:attr/actionModeFindDrawable" />
+            style="@style/fabChild"
+            app:srcCompat="?android:attr/actionModeFindDrawable"
+            android:contentDescription="@string/action_history" />
     </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/fabLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/child_fab_margin"
         android:layout_marginBottom="@dimen/fab_1st_child_Margin_bottom"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:padding="@dimen/standard_12"
-        android:visibility="gone">
+        style="@style/fabChildContainer">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/fabChildText"
             android:text="@string/action_settings" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:tint="@android:color/white"
-            app:fabCustomSize="@dimen/fab_child_size"
-            app:fabSize="mini"
-            app:srcCompat="@android:drawable/ic_dialog_info" />
+            style="@style/fabChild"
+            app:srcCompat="@android:drawable/ic_dialog_info"
+            android:contentDescription="@string/action_settings" />
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:padding="@dimen/standard_6">
+        style="@style/fabParentContainer">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:gravity="center_vertical"
-            app:fabCustomSize="@dimen/fab_parent_size"
+            style="@style/fabParent"
             app:srcCompat="@android:drawable/ic_dialog_dialer"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:contentDescription="@string/dummy" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

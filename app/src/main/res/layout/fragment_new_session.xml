@@ -9,22 +9,15 @@
 
     <Button
         android:id="@+id/button_start"
-        android:layout_width="@dimen/session_button_width"
-        android:layout_height="@dimen/session_button_height"
-        android:layout_marginTop="@dimen/standard_12"
-        android:clickable="true"
+        style="@style/buttonActive"
         android:text="@string/start_session"
         app:layout_constraintEnd_toStartOf="@+id/button_end"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        style="@style/buttonInactive"
         android:id="@+id/button_end"
-        android:layout_width="@dimen/session_button_width"
-        android:layout_height="@dimen/session_button_height"
-        android:layout_marginTop="@dimen/standard_12"
-        android:backgroundTint="@color/inactive"
-        android:clickable="false"
         android:text="@string/end_session"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_start"
@@ -33,26 +26,17 @@
 
     <LinearLayout
         android:id="@+id/addEndScoreLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:clipToPadding="false"
-        android:gravity="center_vertical"
-        android:padding="@dimen/standard_6"
-        android:visibility="visible"
+        style="@style/fabParentContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_end_scores"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:gravity="center_vertical"
+            style="@style/fabParent"
             app:fabCustomSize="@dimen/fab_parent_size"
             app:srcCompat="@android:drawable/ic_input_add"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="SpeakableTextPresentCheck"
+            android:contentDescription="@string/dummy" />
     </LinearLayout>
 
     <ScrollView
@@ -78,7 +62,6 @@
 
             <TextView
                 android:id="@+id/endsText"
-                android:textSize="@dimen/mainTexTSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -109,16 +92,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="@string/session_time_label"
-                android:textSize="20sp" />
+                android:text="@string/session_time_label" />
 
             <TextView
                 android:id="@+id/sessionTimeValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="@string/session_time_val_label"
-                android:textSize="20sp" />
+                android:text="@string/session_time_val_label" />
 
         </LinearLayout>
 
@@ -141,16 +122,14 @@
                     android:id="@+id/endsLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ends"
-                    android:textSize="20sp" />
+                    android:text="@string/ends" />
 
                 <TextView
                     android:id="@+id/endsValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_0"
-                    android:textSize="20sp" />
+                    android:text="@string/_0" />
             </LinearLayout>
 
             <LinearLayout
@@ -166,16 +145,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:text="@string/arrows"
-                    android:textSize="20sp" />
+                    android:text="@string/arrows" />
 
                 <TextView
                     android:id="@+id/arrowsValue"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/_0"
-                    android:textSize="20sp" />
+                    android:text="@string/_0" />
             </LinearLayout>
 
         </LinearLayout>

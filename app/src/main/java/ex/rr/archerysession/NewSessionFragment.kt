@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
@@ -80,7 +79,7 @@ class NewSessionFragment : Fragment() {
             AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
         }
 
-        sharedViewModel.scores.observe(requireActivity(), Observer {
+        sharedViewModel.scores.observe(requireActivity(), {
             Log.d(this::class.java.name, "Received scores from dialog.")
             if (it != null && it.isNotEmpty()) {
                 session!!.addEndScores(it)
@@ -158,20 +157,20 @@ class NewSessionFragment : Fragment() {
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.GONE
             binding.addEndScoreLayout.visibility = View.VISIBLE
             binding.buttonStart.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.inactive))
+                ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
             binding.buttonStart.isClickable = false
             binding.buttonEnd.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, requireContext().theme))
             binding.buttonEnd.isClickable = true
         } else {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.VISIBLE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.VISIBLE
             binding.addEndScoreLayout.visibility = View.INVISIBLE
             binding.buttonStart.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary))
+                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, requireContext().theme))
             binding.buttonStart.isClickable = true
             binding.buttonEnd.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.inactive))
+                ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
             binding.buttonEnd.isClickable = false
         }
     }

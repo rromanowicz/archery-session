@@ -16,9 +16,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/last_session_label"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textSize="@dimen/mainTexTSize" />
+            android:text="@string/last_session_label"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
