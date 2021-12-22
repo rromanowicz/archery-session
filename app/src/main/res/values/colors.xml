@@ -13,7 +13,5 @@
     <color name="colorTransBg">#26000000</color>
     <color name="inactive">#90989898</color>
     <color name="closeBtn">#90989898</color>
-    <color name="textColor">#4A4949</color>
-    <color name="colorFabBg">#DA939393</color>
 </resources>
 

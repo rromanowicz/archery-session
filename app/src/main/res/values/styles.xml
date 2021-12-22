@@ -77,7 +77,6 @@
     </style>
 
     <style name="fabChildText" parent="Theme.AppCompat">
-        <item name="android:textColor">@color/black</item>
         <item name="android:background">@color/colorFabBg</item>
     </style>
 
@@ -92,6 +91,11 @@
         <item name="fabCustomSize">@dimen/fab_close_size</item>
         <item name="fabSize">mini</item>
         <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="customTextView">
+        <item name="android:textSize">@dimen/mainTexTSize</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
 

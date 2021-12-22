@@ -24,8 +24,6 @@
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="customTextView">
-        <item name="android:textSize">@dimen/mainTexTSize</item>
-        <item name="android:textColor">@color/textColor</item>
-    </style>
+    <color name="textColor">#4A4949</color>
+    <color name="colorFabBg">#DAAFAFAF</color>
 </resources>
