@@ -9,7 +9,7 @@ data class Session(
     val startDate: Date = Date(),
     @SerializedName("endDate")
     var endDate: Date? = null,
-    @SerializedName("nomberOfEnds")
+    @SerializedName("numberOfEnds")
     var ends: Int = 0,
     @SerializedName("numberOfArrows")
     var arrows: Int = 0,
