@@ -22,10 +22,11 @@
     <string name="details_label">"Szczegóły: "</string>
     <string name="arrows_label">"Strzały: "</string>
     <string name="ends_label">"Serie: "</string>
-    <string name="end_date_label">"Data zakończenia: "</string>
-    <string name="start_date_label">"Data Rozpoczęcia: "</string>
+    <string name="end_date_label">"Koniec: "</string>
+    <string name="start_date_label">"Start: "</string>
     <string name="session_time_label">"Czas sesji: "</string>
     <string name="insert_scores">"Punkty serii: "</string>
     <string name="add_scores_fragment_label">Dodaj punkty</string>
-    <string name="avg_arrow">"Sredni strzał: "</string>
+    <string name="avg_arrow">"Śr. strzał: "</string>
+    <string name="score">Punkty:</string>
 </resources>
