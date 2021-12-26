@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/MainFragment"
         android:name="ex.rr.archerysession.MainFragment"
-        android:label="@string/main_fragment_label"
+        android:label="@string/last_session_label"
         tools:layout="@layout/fragment_main">
 
         <action
@@ -58,6 +58,10 @@
     <action
         android:id="@+id/to_HistoryFragment"
         app:destination="@id/HistoryFragment" />
+
+<!--    <action-->
+<!--        android:id="@+id/to_SettingsFragment"-->
+<!--        app:destination="@id/SettingsFragment" />-->
 
     <action
         android:id="@+id/to_AddScoresFragment"

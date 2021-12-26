@@ -37,20 +37,19 @@ class FileProcessor {
         }
     }
 
-    fun getAllFromFile(): MutableMap<Long, Session> {
-        val sessionMap: MutableMap<Long, Session> = mutableMapOf()
+    fun getAllFromFile(): MutableList<DbSession> {
+        val sessionList: MutableList<DbSession> = mutableListOf()
         if (sessionFile.exists()) {
             sessionFile.forEachLine {
                 try {
-                    val (id, session) = Gson().fromJson(it, DbSession::class.java)
-                    sessionMap[id] = session
+                    sessionList.add(Gson().fromJson(it, DbSession::class.java))
                 } catch (e: java.lang.Exception) {
                     e.message
                 }
             }
         }
-        Log.d(this::class.java.name, "Retrieved ${sessionMap.size} records data from file.")
-        return sessionMap
+        Log.d(this::class.java.name, "Retrieved ${sessionList.size} records data from file.")
+        return sessionList
     }
 
     companion object {

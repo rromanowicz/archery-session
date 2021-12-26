@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="yourStyle" parent="android:Theme.Dialog">
+        <item name="android:windowMinWidthMajor">95%</item>
+        <item name="android:windowMinWidthMinor">95%</item>
+    </style>
+
+    <style name="scoreButton" parent="Theme.AppCompat">
+        <item name="android:layout_width">@dimen/score_button</item>
+        <item name="android:layout_height">@dimen/score_button</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="scoreImageButton" parent="Theme.AppCompat">
+        <item name="android:layout_width">@dimen/score_button</item>
+        <item name="android:layout_height">@dimen/score_button</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:layout_weight">0</item>
+    </style>
+
+    <style name="buttonActive" parent="Theme.AppCompat">
+        <item name="android:layout_width">@dimen/session_button_width</item>
+        <item name="android:layout_height">@dimen/session_button_height</item>
+        <item name="android:layout_marginTop">@dimen/standard_12</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="buttonInactive" parent="Theme.AppCompat">
+        <item name="android:layout_width">@dimen/session_button_width</item>
+        <item name="android:layout_height">@dimen/session_button_height</item>
+        <item name="android:layout_marginTop">@dimen/standard_12</item>
+        <item name="android:backgroundTint">@color/inactive</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="fabParent" parent="Theme.AppCompat">
+        <item name="fabCustomSize">@dimen/fab_parent_size</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="fabChild" parent="Theme.AppCompat">
+        <item name="fabCustomSize">@dimen/fab_child_size</item>
+        <item name="fabSize">mini</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+    </style>
+
+    <style name="fabParentContainer" parent="Theme.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/standard_6</item>
+    </style>
+
+    <style name="fabChildContainer" parent="Theme.AppCompat">
+        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:layout_marginEnd">@dimen/child_fab_margin</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/standard_12</item>
+        <item name="android:visibility">gone</item>
+        <item name="fabSize">mini</item>
+    </style>
+
+    <style name="fabChildText" parent="Theme.AppCompat">
+        <item name="android:background">@color/colorFabBg</item>
+    </style>
+
+    <style name="fabMini" parent="Theme.AppCompat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:layout_marginTop">-5dp</item>
+        <item name="android:layout_marginEnd">-5dp</item>
+        <item name="android:backgroundTint">@color/closeBtn</item>
+        <item name="android:background">@color/closeBtn</item>
+        <item name="fabCustomSize">@dimen/fab_close_size</item>
+        <item name="fabSize">mini</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="customTextView">
+        <item name="android:textSize">@dimen/mainTexTSize</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+
+<!--    <item name=""></item>-->
+<!--    ="bottom|end"-->
+<!--    android:layout_margin="@dimen/fab_margin"-->
+<!--    android:gravity="center_vertical"-->
+</resources>

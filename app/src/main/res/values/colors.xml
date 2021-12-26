@@ -12,6 +12,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="colorTransBg">#26000000</color>
     <color name="inactive">#90989898</color>
-    <color name="closeBtn">#FF0000</color>
+    <color name="closeBtn">#90989898</color>
 </resources>
 

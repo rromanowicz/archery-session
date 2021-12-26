@@ -34,38 +34,42 @@ class MainFragment : Fragment() {
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         val db = DBHelper(requireContext(), null)
-        val lastSession = db.getXSessions("1")[0]
-
+        val xSessions = db.getXSessions("1")
         val sessionDetails: View = inflater.inflate(R.layout.fragment_session_details, null)
-        sessionDetails.findViewById<TextView>(R.id.sessionId).text = lastSession.id.toString()
-        sessionDetails.findViewById<TextView>(R.id.startDate).text =
-            formatter.format(lastSession.session.startDate)
-        sessionDetails.findViewById<TextView>(R.id.endDate).text =
-            formatter.format(lastSession.session.endDate!!)
-        sessionDetails.findViewById<TextView>(R.id.endCount).text =
-            lastSession.session.ends.toString()
-        sessionDetails.findViewById<TextView>(R.id.arrowCount).text =
-            lastSession.session.arrows.toString()
-        sessionDetails.findViewById<TextView>(R.id.avgArrowValue).text =
-            lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
-                .div(lastSession.session.arrows)
-                .toString()
 
-        var i = 0
-        lastSession.session.scores.forEach { score ->
-            val formattedScores: MutableList<String> = mutableListOf()
-            val endSum = score.sumOf { it }
-            for (s in score) {
-                formattedScores.add(if (s.toString().length == 1) " \t$s" else "$s")
+        if (xSessions.size != 0) {
+            val lastSession = xSessions[0]
+
+            sessionDetails.findViewById<TextView>(R.id.sessionId).text = lastSession.id.toString()
+            sessionDetails.findViewById<TextView>(R.id.startDate).text =
+                formatter.format(lastSession.session.startDate)
+            sessionDetails.findViewById<TextView>(R.id.endDate).text =
+                formatter.format(lastSession.session.endDate!!)
+            sessionDetails.findViewById<TextView>(R.id.endCount).text =
+                lastSession.session.ends.toString()
+            sessionDetails.findViewById<TextView>(R.id.arrowCount).text =
+                lastSession.session.arrows.toString()
+            sessionDetails.findViewById<TextView>(R.id.avgArrowValue).text =
+                lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
+                    .div(lastSession.session.arrows)
+                    .toString()
+
+            var i = 0
+            lastSession.session.scores.forEach { score ->
+                val formattedScores: MutableList<String> = mutableListOf()
+                val endSum = score.sumOf { it }
+                for (s in score) {
+                    formattedScores.add(if (s.toString().length == 1) " \t$s" else "$s")
+                }
+                val textView = TextView(context)
+                textView.setTextSize(
+                    TypedValue.COMPLEX_UNIT_PX,
+                    resources.getDimension(R.dimen.mainTexTSize)
+                )
+                textView.text =
+                    ("${++i}: [${if (endSum.toString().length == 1) "0$endSum" else "$endSum"}] \t$formattedScores")
+                sessionDetails.findViewById<LinearLayout>(R.id.mainScrollView).addView(textView)
             }
-            val textView = TextView(context)
-            textView.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.mainTexTSize)
-            )
-            textView.text =
-                ("${++i}: [${if (endSum.toString().length == 1) "0$endSum" else "$endSum"}] \t$formattedScores")
-            sessionDetails.findViewById<LinearLayout>(R.id.mainScrollView).addView(textView)
         }
         binding.mainLinearLayout.addView(sessionDetails)
     }

@@ -80,7 +80,9 @@ class AddScoresFragment : DialogFragment() {
         shots = scores.size
         outputTextView = scores.toString()
         view?.findViewById<TextView>(R.id.scoresText1)?.text =
-            ("Shots: [$shots] Score: [$totalScore]")
+            ("${resources.getString(R.string.arrows)} [$shots] ${resources.getString(R.string.score)} [$totalScore]")
+
+
         view?.findViewById<TextView>(R.id.scoresText2)?.text = ("$scores")
     }
 

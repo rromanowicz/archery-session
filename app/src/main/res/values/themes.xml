@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/customTextView</item>
     </style>
 
     <style name="Theme.MyApplication.NoActionBar">
@@ -22,4 +23,7 @@
     <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <color name="textColor">#4A4949</color>
+    <color name="colorFabBg">#DAAFAFAF</color>
 </resources>

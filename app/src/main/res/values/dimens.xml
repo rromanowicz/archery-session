@@ -1,7 +1,6 @@
 <resources>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="fab_margin">12dp</dimen>
-    <dimen name="child_fab_margin">21dp</dimen>
     <dimen name="standard_6">6dp</dimen>
     <dimen name="standard_12">12dp</dimen>
     <dimen name="standard_23">23dp</dimen>
@@ -18,6 +17,7 @@
     <dimen name="fab_parent_size">80sp</dimen>
     <dimen name="fab_child_size">55dp</dimen>
     <dimen name="fab_close_size">30dp</dimen>
+    <dimen name="child_fab_margin">6dp</dimen>
     <dimen name="fab_1st_child_Margin_bottom">25dp</dimen>
     <dimen name="fab_2nd_child_Margin_bottom">50dp</dimen>
     <dimen name="fab_3rd_child_Margin_bottom">75dp</dimen>

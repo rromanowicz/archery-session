@@ -44,30 +44,18 @@
 
                 <Button
                     android:id="@+id/scoreButton_0"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_0" />
+                    android:text="@string/_0"
+                    style="@style/scoreButton" />
 
                 <Button
                     android:id="@+id/scoreButton_6"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_6" />
+                    android:text="@string/_6"
+                    style="@style/scoreButton" />
 
                 <Button
                     android:id="@+id/scoreButton_7"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_7" />
+                    android:text="@string/_7"
+                    style="@style/scoreButton" />
             </LinearLayout>
 
             <LinearLayout
@@ -77,30 +65,18 @@
 
                 <Button
                     android:id="@+id/scoreButton_8"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_8" />
+                    android:text="@string/_8"
+                    style="@style/scoreButton" />
 
                 <Button
                     android:id="@+id/scoreButton_9"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_9" />
+                    android:text="@string/_9"
+                    style="@style/scoreButton" />
 
                 <Button
                     android:id="@+id/scoreButton_10"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:text="@string/_10" />
+                    android:text="@string/_10"
+                    style="@style/scoreButton" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,22 +87,17 @@
 
                 <ImageButton
                     android:id="@+id/scoreButton_delete"
-                    android:layout_width="@dimen/score_button"
-                    android:layout_height="@dimen/score_button"
                     android:layout_gravity="end"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="0"
                     android:src="@android:drawable/ic_input_delete"
-                    tools:ignore="InefficientWeight" />
+                    tools:ignore="InefficientWeight"
+                    style="@style/scoreImageButton"/>
             </LinearLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/submitButton"
-            android:layout_width="@dimen/score_button_submit_width"
-            android:layout_height="@dimen/score_button_submit_height"
-            android:text="@string/submit" />
+            android:text="@string/submit"
+            style="@style/buttonActive"/>
     </LinearLayout>
 
 </RelativeLayout>

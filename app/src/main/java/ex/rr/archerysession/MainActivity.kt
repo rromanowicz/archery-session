@@ -1,7 +1,12 @@
 package ex.rr.archerysession
 
 import android.animation.Animator
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -15,6 +20,8 @@ import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.ActivityMainBinding
+import ex.rr.archerysession.db.DBHelper
+import ex.rr.archerysession.file.FileProcessor
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +37,21 @@ class MainActivity : AppCompatActivity() {
             application, "b81c7307-434c-4fa1-bdb8-4ad3e0402838",
             Analytics::class.java, Crashes::class.java
         )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (Environment.isExternalStorageManager()) {
+                syncFileWithDb()
+            } else {
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+                syncFileWithDb()
+            }
+        } else {
+            syncFileWithDb()
+        }
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -60,7 +82,25 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_HistoryFragment)
         }
 
+    }
 
+    private fun syncFileWithDb() {
+        val fileProcessor = FileProcessor()
+        val savedFile = fileProcessor.getAllFromFile()
+        val db = DBHelper(this, null)
+        val allSessions = db.getAllSessions()
+
+        if (allSessions.isNotEmpty() && savedFile.isNullOrEmpty()) {
+            fileProcessor.writeAll(allSessions)
+        } else if (allSessions.isEmpty() && savedFile.isNotEmpty()) {
+            db.addAll(savedFile)
+        } else if (savedFile.size != allSessions.size) {
+            val notInDb = savedFile.minus(allSessions.toSet())
+            val notInFile = allSessions.minus(savedFile.toSet())
+            db.addAll(notInDb.toMutableList())
+            fileProcessor.writeAll(notInFile.toMutableList())
+        }
+        db.close()
     }
 
     private fun showFABMenu() {
@@ -98,22 +138,26 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
-
         return true
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> {
+            R.id.action_new_session -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_NewSessionFragment)
                 return true
             }
+            R.id.action_history -> {
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_HistoryFragment)
+                return true
+            }
+//            R.id.action_settings -> { //TODO
+//                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
+//                return true
+//            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
