@@ -35,13 +35,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return savedItemId
     }
 
-    fun addAll(sessions: MutableMap<Long, DbSession>): MutableList<Long> {
+    fun addAll(sessions: MutableList<DbSession>): MutableList<Long> {
         val savedItems: MutableList<Long> = mutableListOf()
         val db = this.writableDatabase
         sessions.forEach {
             val values = ContentValues()
-            values.put(ID_COL, it.key)
-            values.put(SESSION_COl, it.value.session.getJSON())
+            values.put(ID_COL, it.id)
+            values.put(SESSION_COl, it.session.getJSON())
             val savedItemId = db.insert(TABLE_NAME, null, values)
             savedItems.add(savedItemId)
         }

@@ -59,6 +59,10 @@
         android:id="@+id/to_HistoryFragment"
         app:destination="@id/HistoryFragment" />
 
+<!--    <action-->
+<!--        android:id="@+id/to_SettingsFragment"-->
+<!--        app:destination="@id/SettingsFragment" />-->
+
     <action
         android:id="@+id/to_AddScoresFragment"
         app:destination="@id/AddScoresFragment" />
