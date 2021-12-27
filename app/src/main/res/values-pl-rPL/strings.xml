@@ -29,4 +29,6 @@
     <string name="add_scores_fragment_label">Dodaj punkty</string>
     <string name="avg_arrow">"Śr. strzał: "</string>
     <string name="score">Punkty:</string>
+    <string name="session_removed">Sesja usunięta.</string>
+    <string name="total_score">Suma punktów:</string>
 </resources>

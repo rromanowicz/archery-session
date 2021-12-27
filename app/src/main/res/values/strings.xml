@@ -40,4 +40,6 @@
     <string name="avg_arrow">Avg Points: </string>
     <string name="action_settings">Settings</string>
     <string name="score">Score:</string>
+    <string name="session_removed">Session removed.</string>
+    <string name="total_score">Total score:</string>
 </resources>
