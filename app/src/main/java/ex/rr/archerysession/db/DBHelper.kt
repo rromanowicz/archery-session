@@ -90,10 +90,19 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             }
         }
         Log.d(
-            this::class.java.canonicalName,
+            this::class.java.name,
             "Retrieved ${sessionList.size} records from database."
         )
         return sessionList
+    }
+
+    fun removeFromDb(sessionId: Long) {
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, "$ID_COL = $sessionId", null)
+        db.close()
+        Log.d(
+            this::class.java.name, "Session [$sessionId] removed from db."
+        )
     }
 
     companion object {

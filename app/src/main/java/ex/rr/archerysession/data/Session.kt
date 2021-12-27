@@ -6,7 +6,7 @@ import java.util.*
 
 data class Session(
     @SerializedName("startDate")
-    val startDate: Date = Date(),
+    var startDate: Date = Date(),
     @SerializedName("endDate")
     var endDate: Date? = null,
     @SerializedName("numberOfEnds")
@@ -35,6 +35,14 @@ data class Session(
 
     fun getJSON(): String {
         return Gson().toJson(this)
+    }
+
+    fun clear(){
+        this.startDate = Date()
+        this.endDate = null
+        this.ends = 0
+        this.arrows = 0
+        this.scores = mutableListOf()
     }
 
 }

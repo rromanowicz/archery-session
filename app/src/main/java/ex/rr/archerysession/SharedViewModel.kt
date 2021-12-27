@@ -7,8 +7,8 @@ import ex.rr.archerysession.data.Session
 class SharedViewModel : ViewModel() {
     var scores = MutableLiveData<MutableList<Int>?>()
     var session = MutableLiveData<Session?>()
-//    var dbSession = MutableLiveData<DbSession?>()
     var sessionId = MutableLiveData<String?>()
+    var reloadHistory = MutableLiveData<Boolean?>()
 
     fun sendScores(values: MutableList<Int>) {
         scores.value = values
@@ -18,12 +18,12 @@ class SharedViewModel : ViewModel() {
         session.value = value
     }
 
-//    fun sendDbSession(value: DbSession) {
-//        dbSession.value = value
-//    }
-
     fun sendSessionId(value: String) {
         sessionId.value = value
+    }
+
+    fun setReloadHistory() {
+        reloadHistory.value = reloadHistory.value == null || reloadHistory.value == false
     }
 
     fun clear() {

@@ -2,6 +2,7 @@ package ex.rr.archerysession
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,12 +31,30 @@ class HistoryFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        fillHistoryList()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
+        viewModel.reloadHistory.observe(requireActivity(), {
+            Log.d(this::class.java.name, "Setting history refresh flag.")
+            if (it != null && it) {
+                fillHistoryList()
+                viewModel.setReloadHistory()
+            }
+        })
+
+        fillHistoryList()
+    }
+
+    private fun fillHistoryList() {
+        binding.historyScrollView.removeAllViewsInLayout()
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//        val parent = view.findViewById(R.id.historyLayout) as ViewGroup
+        //        val parent = view.findViewById(R.id.historyLayout) as ViewGroup
 
         val db = DBHelper(requireContext(), null)
         val last10Sessions = db.getXSessions(NO_OF_SESSIONS, "0")
@@ -56,7 +75,6 @@ class HistoryFragment : Fragment() {
                 SessionDetailsFragment(id).show(childFragmentManager, SessionDetailsFragment.TAG)
             }
             binding.historyScrollView.addView(historyItem)
-
         }
     }
 

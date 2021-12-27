@@ -5,11 +5,13 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentSessionDetailsBinding
 import ex.rr.archerysession.db.DBHelper
+import ex.rr.archerysession.file.FileProcessor
 
 
 class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
@@ -72,6 +74,19 @@ class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
         binding.fabClose.visibility = View.VISIBLE
         binding.fabClose.setOnClickListener {
             dismiss()
+        }
+
+        binding.fabDelete.visibility = View.VISIBLE
+        binding.fabDelete.setOnClickListener {
+            try {
+                db.removeFromDb(sessionId!!)
+                FileProcessor().removeFromFile(sessionId!!)
+                sharedViewModel.setReloadHistory()
+                Toast.makeText(requireContext(), "Session removed.", Toast.LENGTH_SHORT).show()
+                dismiss()
+            } catch (e:Exception) {
+                e.printStackTrace()
+            }
         }
 
         binding.sessionId.text = lastSession.id.toString()
