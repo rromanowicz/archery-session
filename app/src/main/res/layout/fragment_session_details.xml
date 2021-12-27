@@ -129,4 +129,11 @@
         </LinearLayout>
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabDelete"
+        style="@style/fabMini"
+        android:layout_alignBottom="@+id/mainLayout"
+        android:layout_alignEnd="@+id/mainLayout"
+        android:src="@android:drawable/ic_menu_delete" />
+
 </RelativeLayout>

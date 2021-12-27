@@ -52,6 +52,19 @@ class FileProcessor {
         return sessionList
     }
 
+    fun removeFromFile(sessionId: Long) {
+        val allSessions = getAllFromFile()
+        allSessions.forEach {
+            if (sessionId == it.id) {
+                allSessions.remove(it)
+            }
+        }
+        writeAll(allSessions)
+        Log.d(
+            this::class.java.name, "Session [$sessionId] removed from file."
+        )
+    }
+
     companion object {
         private const val FILE_NAME = "/archerySessions.txt"
         private val DIRECTORY: File =
