@@ -60,8 +60,6 @@ class NewSessionFragment : Fragment() {
             }
         }
 
-        session = Session()
-
         sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         endsView = binding.endsView
@@ -102,8 +100,11 @@ class NewSessionFragment : Fragment() {
 
     private fun sessionStart() {
         if (session == null) {
-            session = Session::class.java.newInstance()
+            session = Session()
+        } else {
+            session!!.clear()
         }
+
         binding.endsText.text = ""
         sessionRunning = true
         setView()
@@ -119,7 +120,6 @@ class NewSessionFragment : Fragment() {
             Log.d(this::class.java.name, "Saved session with id: $sessionId")
             FileProcessor().saveToFile(sessionId, session!!)
         }
-        session = null
         sharedViewModel.clear()
         sessionRunning = false
         setView()
