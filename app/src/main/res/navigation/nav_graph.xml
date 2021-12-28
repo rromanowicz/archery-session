@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/NewSessionFragment"
         android:name="ex.rr.archerysession.NewSessionFragment"
-        android:label="@string/new_session_fragment_label"
+        android:label="@string/new_session"
         tools:layout="@layout/fragment_new_session">
 
         <action

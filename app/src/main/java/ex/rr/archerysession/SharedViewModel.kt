@@ -30,5 +30,6 @@ class SharedViewModel : ViewModel() {
         scores.value?.clear()
         session.value = null
         sessionId.value = null
+        reloadHistory.value = null
     }
 }

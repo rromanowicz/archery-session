@@ -53,13 +53,13 @@
                 android:id="@+id/endCountLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ends_label" />
+                android:text="@string/ends" />
 
             <TextView
                 android:id="@+id/arrowCountLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/arrows_label" />
+                android:text="@string/arrows" />
 
             <TextView
                 android:id="@+id/avgArrowLabel"

@@ -95,7 +95,7 @@ class NewSessionFragment : Fragment() {
 
         val lastEnd = session!!.scores[session!!.scores.lastIndex]
 
-        binding.endsText.append("${session!!.ends}: Shots: ${lastEnd.size}, Total score: ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n")
+        binding.endsText.append("${session!!.ends}: ${getString(R.string.arrows)} ${lastEnd.size}, ${getString(R.string.total_score)} ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n")
     }
 
     private fun sessionStart() {

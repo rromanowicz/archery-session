@@ -82,7 +82,7 @@ class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
                 db.removeFromDb(sessionId!!)
                 FileProcessor().removeFromFile(sessionId!!)
                 sharedViewModel.setReloadHistory()
-                Toast.makeText(requireContext(), "Session removed.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.session_removed), Toast.LENGTH_SHORT).show()
                 dismiss()
             } catch (e:Exception) {
                 e.printStackTrace()
