@@ -11,7 +11,7 @@ class FileProcessor {
 
     fun saveToFile(id: Long, session: Session) {
         try {
-            val text = "{\"sessionId\": $id, sessionDetails: ${session.getJSON()}}"
+            val text = "{\"sessionId\": $id, \"sessionDetails\": ${session.getJSON()}}"
             if (sessionFile.exists()) {
                 sessionFile.appendText("\n$text")
             } else {

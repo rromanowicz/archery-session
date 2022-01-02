@@ -28,4 +28,7 @@
     <string name="score">Punkty:</string>
     <string name="session_removed">Sesja usunięta.</string>
     <string name="total_score">Suma punktów:</string>
+    <string name="end_session_q">Zakończyć Sesję?</string>
+    <string name="confirm">Potwierdź</string>
+    <string name="cancel">Anuluj</string>
 </resources>
