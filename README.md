@@ -44,7 +44,9 @@
 > > - Summary at the top of the popup will show number of arrows, total score and all > given inputs.
 > > - After selecting `Submit`, the summary will appear in underlying view with number > of current end.
 > >  - Section is scrollable if number of ends exceed screen size.
-> - Pressing `End session` button will stop the timer, restore top bar and back button > functionality.
+> - Pressing `End session` button will display confirmation dialog
+> > - `Confirm` will end session, stop the timer, restore top bar and back button functionality
+> > - `Cancel` will close dialog window
 > - Given session is saved to history and will be available on main screen until next session end.
 
 ---

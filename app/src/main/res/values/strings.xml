@@ -39,4 +39,7 @@
     <string name="score">Score:</string>
     <string name="session_removed">Session removed.</string>
     <string name="total_score">Total score:</string>
+    <string name="end_session_q">End Session?</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

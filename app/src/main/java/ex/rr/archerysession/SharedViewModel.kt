@@ -9,6 +9,7 @@ class SharedViewModel : ViewModel() {
     var session = MutableLiveData<Session?>()
     var sessionId = MutableLiveData<String?>()
     var reloadHistory = MutableLiveData<Boolean?>()
+    var endSession = MutableLiveData<Boolean?>()
 
     fun sendScores(values: MutableList<Int>) {
         scores.value = values
@@ -26,10 +27,15 @@ class SharedViewModel : ViewModel() {
         reloadHistory.value = reloadHistory.value == null || reloadHistory.value == false
     }
 
+    fun sendEndSession() {
+        endSession.value = endSession.value == null || endSession.value == false
+    }
+
     fun clear() {
         scores.value?.clear()
         session.value = null
         sessionId.value = null
         reloadHistory.value = null
+        endSession.value = null
     }
 }

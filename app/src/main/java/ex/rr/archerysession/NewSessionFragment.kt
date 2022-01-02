@@ -68,7 +68,7 @@ class NewSessionFragment : Fragment() {
             sessionStart()
         }
         binding.buttonEnd.setOnClickListener {
-            sessionEnd()
+            ConfirmSessionFragment().show(parentFragmentManager, ConfirmSessionFragment.TAG)
         }
 
         sessionTime = binding.sessionTimeValue
@@ -82,6 +82,13 @@ class NewSessionFragment : Fragment() {
             if (it != null && it.isNotEmpty()) {
                 session!!.addEndScores(it)
                 updateResults()
+            }
+        })
+
+        sharedViewModel.endSession.observe(requireActivity(), {
+            Log.d(this::class.java.name, "EndSession received from dialog.")
+            if (it != null && it) {
+                sessionEnd()
             }
         })
     }

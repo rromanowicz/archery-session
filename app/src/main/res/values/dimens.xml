@@ -14,6 +14,7 @@
     <dimen name="dialogTexTSize">18sp</dimen>
     <dimen name="session_button_height">60dp</dimen>
     <dimen name="session_button_width">180dp</dimen>
+    <dimen name="choice_button_width">140dp</dimen>
     <dimen name="fab_parent_size">80sp</dimen>
     <dimen name="fab_child_size">55dp</dimen>
     <dimen name="fab_close_size">30dp</dimen>
