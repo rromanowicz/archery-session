@@ -14,12 +14,15 @@ import ex.rr.archerysession.db.DBHelper
 import ex.rr.archerysession.file.FileProcessor
 
 
-class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
+class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = false) :
+    DialogFragment() {
 
     private var sessionId: Long? = null
+    private var buttonsHidden: Boolean? = null
 
     init {
         this.sessionId = sessionId
+        this.buttonsHidden = buttonsHidden
     }
 
     companion object {
@@ -71,21 +74,28 @@ class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
         val db = DBHelper(requireContext(), null)
         val lastSession = db.getSessionById(sessionId.toString())[0]
 
-        binding.fabClose.visibility = View.VISIBLE
-        binding.fabClose.setOnClickListener {
-            dismiss()
-        }
+        if (!buttonsHidden!!) {
+            binding.fabClose.visibility = View.VISIBLE
 
-        binding.fabDelete.visibility = View.VISIBLE
-        binding.fabDelete.setOnClickListener {
-            try {
-                db.removeFromDb(sessionId!!)
-                FileProcessor().removeFromFile(sessionId!!)
-                sharedViewModel.setReloadHistory()
-                Toast.makeText(requireContext(), getString(R.string.session_removed), Toast.LENGTH_SHORT).show()
+            binding.fabClose.setOnClickListener {
                 dismiss()
-            } catch (e:Exception) {
-                e.printStackTrace()
+            }
+
+            binding.fabDelete.visibility = View.VISIBLE
+            binding.fabDelete.setOnClickListener {
+                try {
+                    db.removeFromDb(sessionId!!)
+                    FileProcessor().removeFromFile(sessionId!!)
+                    sharedViewModel.setReloadHistory()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.session_removed),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    dismiss()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
@@ -98,10 +108,9 @@ class SessionDetailsFragment(sessionId: Long? = null) : DialogFragment() {
             lastSession.session.ends.toString()
         binding.arrowCount.text =
             lastSession.session.arrows.toString()
-        binding.avgArrowValue.text =
+        binding.avgArrowValue.text = String.format("%.2f",
             lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
-                .div(lastSession.session.arrows)
-                .toString()
+                .div(lastSession.session.arrows.toDouble()))
 
         var i = 0
         lastSession.session.scores.forEach { score ->

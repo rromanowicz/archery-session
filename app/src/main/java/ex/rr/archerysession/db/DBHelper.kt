@@ -73,6 +73,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         )
     }
 
+    fun getLastSessionId(): Long? {
+        val cursor = this.readableDatabase.rawQuery(
+            "SELECT $ID_COL FROM $TABLE_NAME ORDER BY $ID_COL DESC LIMIT 1", null
+        )
+        return if (cursor.moveToNext()) cursor.getLong(0) else null
+    }
+
     private fun toDbSessionList(cursor: Cursor?): MutableList<DbSession> {
         val sessionList: MutableList<DbSession> = mutableListOf()
         if (cursor != null) {
