@@ -76,6 +76,37 @@ class NewSessionFragment : Fragment() {
         binding.addEndScores.setOnClickListener {
             AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
         }
+    }
+
+    private fun updateResults() {
+        binding.endsValue.text = session!!.ends.toString()
+        binding.arrowsValue.text = session!!.arrows.toString()
+        binding.endsScrollView.post {
+            binding.endsScrollView.fullScroll(View.FOCUS_DOWN)
+        }
+
+        val lastEnd = session!!.scores[session!!.scores.lastIndex]
+
+        binding.endsText.append(
+            "${session!!.ends}: ${activity?.getString(R.string.arrows)} ${lastEnd.size}, ${
+                activity?.getString(
+                    R.string.total_score
+                )
+            } ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n"
+        )
+    }
+
+    private fun sessionStart() {
+        if (session == null) {
+            session = Session()
+        } else {
+            session!!.clear()
+        }
+
+        binding.endsText.text = ""
+        sessionRunning = true
+        setView()
+        runBlocking { timer() }
 
         sharedViewModel.scores.observe(requireActivity(), {
             Log.d(this::class.java.name, "Received scores from dialog.")
@@ -91,31 +122,6 @@ class NewSessionFragment : Fragment() {
                 sessionEnd()
             }
         })
-    }
-
-    private fun updateResults() {
-        binding.endsValue.text = session!!.ends.toString()
-        binding.arrowsValue.text = session!!.arrows.toString()
-        binding.endsScrollView.post {
-            binding.endsScrollView.fullScroll(View.FOCUS_DOWN)
-        }
-
-        val lastEnd = session!!.scores[session!!.scores.lastIndex]
-
-        binding.endsText.append("${session!!.ends}: ${getString(R.string.arrows)} ${lastEnd.size}, ${getString(R.string.total_score)} ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n")
-    }
-
-    private fun sessionStart() {
-        if (session == null) {
-            session = Session()
-        } else {
-            session!!.clear()
-        }
-
-        binding.endsText.text = ""
-        sessionRunning = true
-        setView()
-        runBlocking { timer() }
 
     }
 
@@ -127,6 +133,10 @@ class NewSessionFragment : Fragment() {
             Log.d(this::class.java.name, "Saved session with id: $sessionId")
             FileProcessor().saveToFile(sessionId, session!!)
         }
+
+        sharedViewModel.scores.removeObservers(requireActivity())
+        sharedViewModel.endSession.removeObservers(requireActivity())
+
         sharedViewModel.clear()
         sessionRunning = false
         setView()
@@ -167,14 +177,24 @@ class NewSessionFragment : Fragment() {
                 ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
             binding.buttonStart.isClickable = false
             binding.buttonEnd.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, requireContext().theme))
+                ColorStateList.valueOf(
+                    resources.getColor(
+                        R.color.colorPrimary,
+                        requireContext().theme
+                    )
+                )
             binding.buttonEnd.isClickable = true
         } else {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.VISIBLE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.VISIBLE
             binding.addEndScoreLayout.visibility = View.INVISIBLE
             binding.buttonStart.backgroundTintList =
-                ColorStateList.valueOf(resources.getColor(R.color.colorPrimary, requireContext().theme))
+                ColorStateList.valueOf(
+                    resources.getColor(
+                        R.color.colorPrimary,
+                        requireContext().theme
+                    )
+                )
             binding.buttonStart.isClickable = true
             binding.buttonEnd.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
