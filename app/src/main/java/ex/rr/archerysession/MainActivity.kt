@@ -153,6 +153,10 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_HistoryFragment)
                 return true
             }
+            R.id.action_statistics -> {
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_StatisticsFragment)
+                return true
+            }
 //            R.id.action_settings -> { //TODO
 //                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
 //                return true

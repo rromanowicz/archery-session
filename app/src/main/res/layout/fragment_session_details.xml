@@ -16,124 +16,165 @@
         style="@style/fabMini"
         android:layout_alignTop="@+id/mainLayout"
         android:layout_alignEnd="@+id/mainLayout"
+        android:contentDescription="@string/close"
         android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
-    <LinearLayout
+    <TableLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:orientation="vertical">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/sessionIdLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
+                style="@style/tableLabel"
                 android:text="@string/id_label" />
 
             <TextView
+                android:id="@+id/sessionId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/startDateLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/tableLabel"
                 android:text="@string/start_date_label" />
 
             <TextView
+                android:id="@+id/startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/endDateLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/tableLabel"
                 android:text="@string/end_date_label" />
 
             <TextView
+                android:id="@+id/endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/endCountLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/tableLabel"
                 android:text="@string/ends" />
 
             <TextView
+                android:id="@+id/endCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/arrowCountLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/tableLabel"
                 android:text="@string/arrows" />
 
             <TextView
-                android:id="@+id/avgArrowLabel"
+                android:id="@+id/arrowCount"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/avgArrowLabel"
+                style="@style/tableLabel"
                 android:text="@string/avg_arrow" />
 
             <TextView
+                android:id="@+id/avgArrowValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
                 android:id="@+id/detailsLabel"
+                style="@style/tableLabel"
+                android:text="@string/details_label" />
+
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/details_label" />
-        </LinearLayout>
+                android:maxLines="3"
+                android:minLines="1">
 
-        <LinearLayout
-            android:id="@+id/mainLinearLayout"
+                <LinearLayout
+                    android:id="@+id/detailsScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+        </TableRow>
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/sessionId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/startDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/endDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/endCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/arrowCount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/avgArrowValue"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/details_v"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:id="@+id/statsLabel"
+                style="@style/tableLabel"
+                android:text="@string/statistics" />
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/mainScrollView"
+                    android:id="@+id/statsScrollView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />
             </ScrollView>
 
-        </LinearLayout>
-    </LinearLayout>
+
+        </TableRow>
+    </TableLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDelete"
         style="@style/fabMini"
-        android:layout_alignBottom="@+id/mainLayout"
         android:layout_alignEnd="@+id/mainLayout"
+        android:layout_alignBottom="@+id/mainLayout"
+        android:contentDescription="@string/delete"
         android:src="@android:drawable/ic_menu_delete" />
 
 </RelativeLayout>
