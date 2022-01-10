@@ -1,12 +1,15 @@
 package ex.rr.archerysession
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentSessionDetailsBinding
@@ -119,15 +122,32 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
             for (s in score) {
                 formattedScores.add(if (s.toString().length == 1) " \t$s" else "$s")
             }
-            val textView = TextView(context)
-            textView.setTextSize(
-                TypedValue.COMPLEX_UNIT_PX,
-                resources.getDimension(R.dimen.dialogTexTSize)
-            )
-            textView.text =
-                ("${++i}: [${if (endSum.toString().length == 1) "0$endSum" else "$endSum"}] \t$formattedScores")
-            binding.mainScrollView.addView(textView)
+            addTextView("${++i}: [${if (endSum.toString().length == 1) "0$endSum" else "$endSum"}] \t$formattedScores")
         }
+
+        childFragmentManager.commit {
+            childFragmentManager.fragments.forEach { remove(it) }
+            val stats = StatisticsDialogFragment(lastSession.session, true)
+            add(R.id.statsScrollView, stats)
+            setReorderingAllowed(true)
+        }
+
+    }
+
+    private fun addTextView(
+        text: String,
+        mono: Boolean = false,
+        layout: LinearLayout = binding.detailsScrollView
+    ) {
+        val textView = TextView(context)
+        textView.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX,
+            resources.getDimension(R.dimen.dialogTexTSize)
+        )
+        textView.text = text
+        if (mono) textView.typeface = Typeface.MONOSPACE
+        layout.addView(textView)
     }
 
 }
+

@@ -31,4 +31,11 @@
     <string name="end_session_q">Zakończyć Sesję?</string>
     <string name="confirm">Potwierdź</string>
     <string name="cancel">Anuluj</string>
+    <string name="statistics">Statystyki:</string>
+    <string name="close">Zamknij</string>
+    <string name="delete">Usuń</string>
+    <string name="count">Liczba</string>
+    <string name="percent">Procent</string>
+    <string name="action_statistics">Statystyki</string>
+    <string name="statistics_fragment_fragment_label">Statystyki</string>
 </resources>

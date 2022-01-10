@@ -116,6 +116,13 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="tableLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingEnd">@dimen/standard_12</item>
+        <item name="android:paddingStart">0dp</item>
+    </style>
+
 
 <!--    <item name=""></item>-->
 <!--    ="bottom|end"-->
