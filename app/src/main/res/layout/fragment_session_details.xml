@@ -19,154 +19,165 @@
         android:contentDescription="@string/close"
         android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
-    <TableLayout
+    <ScrollView
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TableRow
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/sessionIdLabel"
-                style="@style/tableLabel"
-                android:text="@string/id_label" />
-
-            <TextView
-                android:id="@+id/sessionId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/startDateLabel"
-                style="@style/tableLabel"
-                android:text="@string/start_date_label" />
-
-            <TextView
-                android:id="@+id/startDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/endDateLabel"
-                style="@style/tableLabel"
-                android:text="@string/end_date_label" />
-
-            <TextView
-                android:id="@+id/endDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/endCountLabel"
-                style="@style/tableLabel"
-                android:text="@string/ends" />
-
-            <TextView
-                android:id="@+id/endCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/arrowCountLabel"
-                style="@style/tableLabel"
-                android:text="@string/arrows" />
-
-            <TextView
-                android:id="@+id/arrowCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/avgArrowLabel"
-                style="@style/tableLabel"
-                android:text="@string/avg_arrow" />
-
-            <TextView
-                android:id="@+id/avgArrowValue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/detailsLabel"
-                style="@style/tableLabel"
-                android:text="@string/details_label" />
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="3"
-                android:minLines="1">
-
-                <LinearLayout
-                    android:id="@+id/detailsScrollView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/statsLabel"
-                style="@style/tableLabel"
-                android:text="@string/statistics" />
-
-            <ScrollView
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
-                    android:id="@+id/statsScrollView"
+                <TableRow
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </ScrollView>
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/sessionIdLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/id_label" />
+
+                    <TextView
+                        android:id="@+id/sessionId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/startDateLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/start_date_label" />
+
+                    <TextView
+                        android:id="@+id/startDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/endDateLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/end_date_label" />
+
+                    <TextView
+                        android:id="@+id/endDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/endCountLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/ends" />
+
+                    <TextView
+                        android:id="@+id/endCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/arrowCountLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/arrows" />
+
+                    <TextView
+                        android:id="@+id/arrowCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/avgArrowLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/avg_arrow" />
+
+                    <TextView
+                        android:id="@+id/avgArrowValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/detailsLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/details_label" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLines="3"
+                        android:minLines="1">
+
+                        <LinearLayout
+                            android:id="@+id/detailsScrollView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </ScrollView>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/statsLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/statistics" />
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:id="@+id/statsScrollView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+                    </ScrollView>
 
 
-        </TableRow>
-    </TableLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

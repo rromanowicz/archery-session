@@ -6,15 +6,11 @@
     android:layout_height="match_parent"
     tools:context="ex.rr.archerysession.MainFragment">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/mainLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/mainLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
