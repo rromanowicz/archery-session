@@ -54,11 +54,11 @@ class HistoryFragment : Fragment() {
     private fun fillHistoryList() {
         binding.historyScrollView.removeAllViewsInLayout()
         val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        //        val parent = view.findViewById(R.id.historyLayout) as ViewGroup
 
         val db = DBHelper(requireContext(), null)
         val last10Sessions = db.getXSessions(NO_OF_SESSIONS, "0")
 
+        var counter = 1
         last10Sessions.forEach {
             val historyItem: View = inflater.inflate(R.layout.history_item, null)
             historyItem.findViewById<TextView>(R.id.idValue).text = it.id.toString()
@@ -76,12 +76,19 @@ class HistoryFragment : Fragment() {
             historyItem.setOnClickListener {
                 SessionDetailsFragment(id).show(childFragmentManager, SessionDetailsFragment.TAG)
             }
+
+            if (counter % 2 == 0) {
+                historyItem.setBackgroundColor(
+                    resources.getColor(R.color.inactive, requireContext().theme)
+                )
+            }
             binding.historyScrollView.addView(historyItem)
+            counter++
         }
     }
 
     companion object {
         const val NO_OF_SESSIONS: String = "10"
-        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
     }
 }
