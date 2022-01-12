@@ -34,7 +34,7 @@
     <string name="submit">Submit</string>
     <string name="date">Date: </string>
     <string name="dummy" translatable="false">###</string>
-    <string name="avg_arrow">Avg Points: </string>
+    <string name="avg_arrow">Avg:</string>
     <string name="action_settings">Settings</string>
     <string name="score">Score:</string>
     <string name="session_removed">Session removed.</string>

@@ -6,11 +6,13 @@
 > >  - Back button will bring you to previously viewed screen, not main screen.
 > > - New Session
 > > - History
+> > - Statistics
 > > - Settings
 > ---
 > - Floating button
 > > - New Session
 > > - History
+> > - Statistics
 > > - Settings
 ---
 ## 2. Main screen
@@ -23,6 +25,10 @@
 > - Average arrow value
 > - All ends details with sum of points
 >  - Section is scrollable if number of ends exceed screen size.
+> - Statistics
+>  - Bar chart showing percentage of shots per point value
+>  - Pie chart showing percentage of shots per point value
+>  - Line chart showing sum of points for each end in session
 ---
 ## 3. New Session
 > - Start Session
@@ -64,10 +70,16 @@
 > > `Delete` button will close the popup and remove session from history
 
 ---
-## 5. Settings
+## 5. Statistics
+> - Data from last 10 sessions
+> - Bar chart showing percentage of shots per point value
+> - Pie chart showing percentage of shots per point value
+> - Line chart showing average shot points for each end in session
+---
+## 6. Settings
 > ### TBD
 ---
-## 6. Behind The Scenes
+## 7. Behind The Scenes
 > - Application uses 2 separate data storage options
 >  - SQLite embeded database
 > > | id | session_json  
