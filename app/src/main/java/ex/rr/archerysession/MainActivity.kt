@@ -82,6 +82,11 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_HistoryFragment)
         }
 
+        binding.fab3.setOnClickListener {
+            closeFABMenu()
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_StatisticsFragment)
+        }
+
     }
 
     private fun syncFileWithDb() {
@@ -107,11 +112,13 @@ class MainActivity : AppCompatActivity() {
         binding.fabLayout1.visibility = View.VISIBLE
         binding.fabLayout2.visibility = View.VISIBLE
         binding.fabLayout3.visibility = View.VISIBLE
+        binding.fabLayout4.visibility = View.VISIBLE
         fabBGLayout.visibility = View.VISIBLE
         binding.fab.animate().rotationBy(180F)
-        binding.fabLayout1.animate().translationY(-resources.getDimension(R.dimen.standard_165))
-        binding.fabLayout2.animate().translationY(-resources.getDimension(R.dimen.standard_120))
-        binding.fabLayout3.animate().translationY(-resources.getDimension(R.dimen.standard_75))
+        binding.fabLayout1.animate().translationY(-resources.getDimension(R.dimen.standard_210))
+        binding.fabLayout2.animate().translationY(-resources.getDimension(R.dimen.standard_165))
+        binding.fabLayout3.animate().translationY(-resources.getDimension(R.dimen.standard_120))
+        binding.fabLayout4.animate().translationY(-resources.getDimension(R.dimen.standard_75))
     }
 
     private fun closeFABMenu() {
@@ -120,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         binding.fabLayout1.animate().translationY(0f)
         binding.fabLayout2.animate().translationY(0f)
         binding.fabLayout3.animate().translationY(0f)
-        binding.fabLayout3.animate().translationY(0f)
+        binding.fabLayout4.animate().translationY(0f)
             .setListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animator: Animator) {}
                 override fun onAnimationEnd(animator: Animator) {
@@ -128,6 +135,7 @@ class MainActivity : AppCompatActivity() {
                         binding.fabLayout1.visibility = View.GONE
                         binding.fabLayout2.visibility = View.GONE
                         binding.fabLayout3.visibility = View.GONE
+                        binding.fabLayout4.visibility = View.GONE
                     }
                 }
 

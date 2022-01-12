@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:id="@+id/fabLayout1"
-        android:layout_marginBottom="@dimen/fab_3rd_child_Margin_bottom"
+        android:layout_marginBottom="@dimen/fab_4th_child_Margin_bottom"
         style="@style/fabChildContainer">
 
         <TextView
@@ -50,7 +50,7 @@
 
     <LinearLayout
         android:id="@+id/fabLayout2"
-        android:layout_marginBottom="@dimen/fab_2nd_child_Margin_bottom"
+        android:layout_marginBottom="@dimen/fab_3rd_child_Margin_bottom"
         style="@style/fabChildContainer">
 
         <TextView
@@ -69,6 +69,25 @@
 
     <LinearLayout
         android:id="@+id/fabLayout3"
+        android:layout_marginBottom="@dimen/fab_2nd_child_Margin_bottom"
+        style="@style/fabChildContainer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/fabChildText"
+            android:text="@string/action_statistics" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab3"
+            style="@style/fabChild"
+            android:contentDescription="@string/action_statistics"
+            app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/fabLayout4"
         android:layout_marginBottom="@dimen/fab_1st_child_Margin_bottom"
         style="@style/fabChildContainer">
 
@@ -79,7 +98,7 @@
             android:text="@string/action_settings" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab3"
+            android:id="@+id/fab4"
             style="@style/fabChild"
             app:srcCompat="@android:drawable/ic_dialog_info"
             android:contentDescription="@string/action_settings" />
