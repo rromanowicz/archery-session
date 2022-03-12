@@ -38,4 +38,5 @@
     <string name="percent">Procent</string>
     <string name="action_statistics">Statystyki</string>
     <string name="statistics_fragment_fragment_label">Statystyki</string>
+    <string name="sum_arrow">Punkty:</string>
 </resources>

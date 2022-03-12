@@ -118,6 +118,22 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/sumArrowLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/sum_arrow" />
+
+                    <TextView
+                        android:id="@+id/sumArrowValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:id="@+id/avgArrowLabel"
                         style="@style/tableLabel"
                         android:text="@string/avg_arrow" />

@@ -40,20 +40,20 @@ class HistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        viewModel.reloadHistory.observe(requireActivity(), {
+        viewModel.reloadHistory.observe(requireActivity()) {
             Log.d(this::class.java.name, "Setting history refresh flag.")
             if (it != null && it) {
                 fillHistoryList()
                 viewModel.setReloadHistory()
             }
-        })
+        }
 
         fillHistoryList()
     }
 
     private fun fillHistoryList() {
         binding.historyScrollView.removeAllViewsInLayout()
-        val inflater = context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = requireContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         val db = DBHelper(requireContext(), null)
         val last10Sessions = db.getXSessions(NO_OF_SESSIONS, "0")
@@ -66,6 +66,8 @@ class HistoryFragment : Fragment() {
                 formatter.format(it.session.startDate)
             historyItem.findViewById<TextView>(R.id.endsValue).text = it.session.ends.toString()
             historyItem.findViewById<TextView>(R.id.arrowsValue).text = it.session.arrows.toString()
+            historyItem.findViewById<TextView>(R.id.sumArrowValue).text =
+                it.session.scores.sumOf { t -> t.sumOf { x -> x } }.toString()
             historyItem.findViewById<TextView>(R.id.avgArrowValue).text = String.format(
                 "%.2f",
                 it.session.scores.sumOf { t -> t.sumOf { x -> x } }

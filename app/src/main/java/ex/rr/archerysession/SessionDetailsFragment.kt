@@ -111,6 +111,8 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
             lastSession.session.ends.toString()
         binding.arrowCount.text =
             lastSession.session.arrows.toString()
+        binding.sumArrowValue.text =
+            lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }.toString()
         binding.avgArrowValue.text = String.format("%.2f",
             lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
                 .div(lastSession.session.arrows.toDouble()))
