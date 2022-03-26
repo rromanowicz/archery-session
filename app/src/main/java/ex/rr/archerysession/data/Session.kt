@@ -14,7 +14,9 @@ data class Session(
     @SerializedName("numberOfArrows")
     var arrows: Int = 0,
     @SerializedName("endScores")
-    var scores: MutableList<MutableList<Int>> = mutableListOf()
+    var scores: MutableList<MutableList<Int>> = mutableListOf(),
+    @SerializedName("bow")
+    var bow: Bow? = null
 ) {
 
     fun addEndScores(scores: MutableList<Int>) {

@@ -49,6 +49,18 @@
     <string name="percent">Percent:</string>
     <string name="action_statistics">Statistics</string>
     <string name="statistics_fragment_fragment_label">Statistics</string>
+    <string name="settings_fragment_fragment_label">Settings</string>
     <string name="sum_arrow">Points:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_new">Add new</string>
+    <string name="remove_selected">Remove selected</string>
+    <string name="your_bows">Your bows:</string>
+    <string name="new_bow">New bow:</string>
+    <string name="name">Name</string>
+    <string name="bow_added">Bow added.</string>
+    <string name="bow_already_exists">Bow with this name already exists.</string>
+    <string name="unexpected_error">Unexpected error</string>
+    <string name="no_bows_created">No bows created</string>
+    <string name="bow">Bow</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
