@@ -7,7 +7,7 @@ import ex.rr.archerysession.data.DbSession
 import ex.rr.archerysession.data.Session
 import java.io.File
 
-class FileProcessor {
+class SessionFileProcessor {
 
     fun saveToFile(id: Long, session: Session) {
         try {

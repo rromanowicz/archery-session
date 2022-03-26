@@ -21,7 +21,8 @@ import com.microsoft.appcenter.crashes.Crashes
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.ActivityMainBinding
 import ex.rr.archerysession.db.DBHelper
-import ex.rr.archerysession.file.FileProcessor
+import ex.rr.archerysession.file.SessionFileProcessor
+import ex.rr.archerysession.file.SettingsFileProcessor
 
 
 class MainActivity : AppCompatActivity() {
@@ -87,24 +88,34 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_StatisticsFragment)
         }
 
+        binding.fab4.setOnClickListener {
+            closeFABMenu()
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
+        }
+
     }
 
     private fun syncFileWithDb() {
-        val fileProcessor = FileProcessor()
-        val savedFile = fileProcessor.getAllFromFile()
+        val sessionFileProcessor = SessionFileProcessor()
+        val sessionFile = sessionFileProcessor.getAllFromFile()
+//        val settingsFileProcessor = SettingsFileProcessor()
+//        val settingsFile = settingsFileProcessor.readSettings()
         val db = DBHelper(this, null)
+        db.init()
         val allSessions = db.getAllSessions()
+//        val settings = db.getSettings()
 
-        if (allSessions.isNotEmpty() && savedFile.isNullOrEmpty()) {
-            fileProcessor.writeAll(allSessions)
-        } else if (allSessions.isEmpty() && savedFile.isNotEmpty()) {
-            db.addAll(savedFile)
-        } else if (savedFile.size != allSessions.size) {
-            val notInDb = savedFile.minus(allSessions.toSet())
-            val notInFile = allSessions.minus(savedFile.toSet())
+        if (allSessions.isNotEmpty() && sessionFile.isNullOrEmpty()) {
+            sessionFileProcessor.writeAll(allSessions)
+        } else if (allSessions.isEmpty() && sessionFile.isNotEmpty()) {
+            db.addAll(sessionFile)
+        } else if (sessionFile.size != allSessions.size) {
+            val notInDb = sessionFile.minus(allSessions.toSet())
+            val notInFile = allSessions.minus(sessionFile.toSet())
             db.addAll(notInDb.toMutableList())
-            fileProcessor.writeAll(notInFile.toMutableList())
+            sessionFileProcessor.writeAll(notInFile.toMutableList())
         }
+
         db.close()
     }
 
@@ -165,10 +176,10 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_StatisticsFragment)
                 return true
             }
-//            R.id.action_settings -> { //TODO
-//                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
-//                return true
-//            }
+            R.id.action_settings -> {
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
+                return true
+            }
 
             else -> super.onOptionsItemSelected(item)
         }

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentSessionDetailsBinding
 import ex.rr.archerysession.db.DBHelper
-import ex.rr.archerysession.file.FileProcessor
+import ex.rr.archerysession.file.SessionFileProcessor
 
 
 class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = false) :
@@ -88,7 +88,7 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
             binding.fabDelete.setOnClickListener {
                 try {
                     db.removeFromDb(sessionId!!)
-                    FileProcessor().removeFromFile(sessionId!!)
+                    SessionFileProcessor().removeFromFile(sessionId!!)
                     sharedViewModel.setReloadHistory()
                     Toast.makeText(
                         requireContext(),
@@ -107,10 +107,14 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
             MainFragment.formatter.format(lastSession.session.startDate)
         binding.endDate.text =
             MainFragment.formatter.format(lastSession.session.endDate!!)
+        binding.bow.text =
+            lastSession.session.bow?.name ?: ""
         binding.endCount.text =
             lastSession.session.ends.toString()
         binding.arrowCount.text =
             lastSession.session.arrows.toString()
+        binding.sumArrowValue.text =
+            lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }.toString()
         binding.avgArrowValue.text = String.format("%.2f",
             lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
                 .div(lastSession.session.arrows.toDouble()))

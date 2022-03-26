@@ -54,6 +54,13 @@
         tools:layout="@layout/fragment_statistics">
     </fragment>
 
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="ex.rr.archerysession.SettingsFragment"
+        android:label="@string/settings_fragment_fragment_label"
+        tools:layout="@layout/fragment_settings">
+    </fragment>
+
     <action
         android:id="@+id/to_MainFragment"
         app:destination="@id/MainFragment" />
@@ -66,9 +73,9 @@
         android:id="@+id/to_HistoryFragment"
         app:destination="@id/HistoryFragment" />
 
-<!--    <action-->
-<!--        android:id="@+id/to_SettingsFragment"-->
-<!--        app:destination="@id/SettingsFragment" />-->
+    <action
+        android:id="@+id/to_SettingsFragment"
+        app:destination="@id/SettingsFragment" />
 
     <action
         android:id="@+id/to_AddScoresFragment"

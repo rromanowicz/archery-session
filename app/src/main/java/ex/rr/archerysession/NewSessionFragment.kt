@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.addCallback
@@ -16,7 +17,7 @@ import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
 import ex.rr.archerysession.data.Session
 import ex.rr.archerysession.db.DBHelper
-import ex.rr.archerysession.file.FileProcessor
+import ex.rr.archerysession.file.SessionFileProcessor
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -76,6 +77,8 @@ class NewSessionFragment : Fragment() {
         binding.addEndScores.setOnClickListener {
             AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
         }
+
+        updateSpinner()
     }
 
     private fun updateResults() {
@@ -103,25 +106,30 @@ class NewSessionFragment : Fragment() {
             session!!.clear()
         }
 
+        session!!.bow = DBHelper(
+            requireContext(),
+            null
+        ).getBowByName(binding.bowSelector.selectedItem.toString())
+
         binding.endsText.text = ""
         sessionRunning = true
         setView()
         runBlocking { timer() }
 
-        sharedViewModel.scores.observe(requireActivity(), {
+        sharedViewModel.scores.observe(requireActivity()) {
             Log.d(this::class.java.name, "Received scores from dialog.")
             if (it != null && it.isNotEmpty()) {
                 session!!.addEndScores(it)
                 updateResults()
             }
-        })
+        }
 
-        sharedViewModel.endSession.observe(requireActivity(), {
+        sharedViewModel.endSession.observe(requireActivity()) {
             Log.d(this::class.java.name, "EndSession received from dialog.")
             if (it != null && it) {
                 sessionEnd()
             }
-        })
+        }
 
     }
 
@@ -130,8 +138,8 @@ class NewSessionFragment : Fragment() {
         if (session!!.arrows != 0) {
             val db = DBHelper(requireContext(), null)
             val sessionId = db.addSession(session!!)
-            Log.d(this::class.java.name, "Saved session with id: $sessionId")
-            FileProcessor().saveToFile(sessionId, session!!)
+            Log.d(this::class.java.name, "Saved session with id: $sessionId, ${session!!.getJSON()}")
+            SessionFileProcessor().saveToFile(sessionId, session!!)
         }
 
         sharedViewModel.scores.removeObservers(requireActivity())
@@ -172,6 +180,7 @@ class NewSessionFragment : Fragment() {
         if (sessionRunning) {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.GONE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.GONE
+            (activity as MainActivity).findViewById<View>(R.id.bowSelector).visibility = View.GONE
             binding.addEndScoreLayout.visibility = View.VISIBLE
             binding.buttonStart.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
@@ -187,6 +196,7 @@ class NewSessionFragment : Fragment() {
         } else {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.VISIBLE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.VISIBLE
+            (activity as MainActivity).findViewById<View>(R.id.bowSelector).visibility = View.VISIBLE
             binding.addEndScoreLayout.visibility = View.INVISIBLE
             binding.buttonStart.backgroundTintList =
                 ColorStateList.valueOf(
@@ -200,5 +210,19 @@ class NewSessionFragment : Fragment() {
                 ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
             binding.buttonEnd.isClickable = false
         }
+    }
+
+    private fun updateSpinner() {
+        var items = arrayListOf(getString(R.string.no_bows_created))
+
+        val db = DBHelper(requireContext(), null)
+        var bows = db.getSettings()?.bows
+        if (bows != null && bows.isNotEmpty()) {
+            items = bows.mapTo(arrayListOf()) { it.name }
+        }
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.bowSelector.adapter = adapter
     }
 }

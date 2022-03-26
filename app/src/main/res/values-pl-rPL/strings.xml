@@ -38,4 +38,16 @@
     <string name="percent">Procent</string>
     <string name="action_statistics">Statystyki</string>
     <string name="statistics_fragment_fragment_label">Statystyki</string>
+    <string name="sum_arrow">Punkty:</string>
+    <string name="settings_fragment_fragment_label">Ustawienia</string>
+    <string name="add_new">Dodaj</string>
+    <string name="remove_selected">Usuń</string>
+    <string name="your_bows">Łuki:</string>
+    <string name="new_bow">Nowy łuk:</string>
+    <string name="name">Nazwa</string>
+    <string name="bow_added">Łuk dodany.</string>
+    <string name="bow_already_exists">Łuk z tą nazwą już istnieje.</string>
+    <string name="unexpected_error">Nieoczekiwany błąd.</string>
+    <string name="no_bows_created">Brak dostępnych łuków.</string>
+    <string name="bow">Łuk</string>
 </resources>
