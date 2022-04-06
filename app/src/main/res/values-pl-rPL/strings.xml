@@ -50,4 +50,8 @@
     <string name="unexpected_error">Nieoczekiwany błąd.</string>
     <string name="no_bows_created">Brak dostępnych łuków.</string>
     <string name="bow">Łuk</string>
+    <string name="description">Opis</string>
+    <string name="length">Długość</string>
+    <string name="edit_selected">Edycja</string>
+    <string name="bow_removed">Łuk usunięty.</string>
 </resources>
