@@ -1,4 +1,4 @@
-<img src="file:///home/ex/git/archery-session/ico.png" title="" alt="" data-align="center">
+<img src="https://github.com/rromanowicz/archery-session/blob/develop/ico.png" title="" alt="" data-align="center">
 
 # Archery Session
 
@@ -33,6 +33,7 @@
 > - ID
 > - Start date/time
 > - End date/time
+> - Bow
 > - Number of ends
 > - Number of arrows
 > - Average arrow value
@@ -47,6 +48,10 @@
 
 ## 3. New Session
 
+> - Bow selector 
+>   
+>   > Select bow for current session `Dropdown list`
+> 
 > - Start Session
 > 
 > - End Session
@@ -117,7 +122,20 @@
 
 ## 6. Settings
 
-> ### TBD
+> ### Your bows
+> 
+> - Bows
+>   
+>   > Add/Edit bow
+>   > 
+>   > - Name
+>   > - Description
+>   > - Length
+>   > - Brace height
+>   > - Top tiller
+>   > - Bottom tiller
+>   > 
+>   > Edit window has the `Delete` button
 
 ---
 
@@ -139,17 +157,26 @@
 >     
 >     > ```json
 >     > {
->     > "sessionId": 4,
->     > "sessionDetails": {
->     > "numberOfArrows": 12,
->     > "endDate": "Dec 28, 2021 9:44:08 PM",
->     > "numberOfEnds": 2,
->     > "endScores": [
->     >  [10,9,8,9,10,10],
->     >  [9,8,9,7,10,6]
->     > ],
->     > "startDate": "Dec 28, 2021 9:43:50 PM"
->     > }
+>     >     "sessionId": 4,
+>     >     "sessionDetails": {
+>     >         "numberOfArrows": 12,
+>     >         "startDate": "Dec 28, 2021 9:43:50 PM",
+>     >         "endDate": "Dec 28, 2021 9:44:08 PM",
+>     >         "numberOfEnds": 2,
+>     >         "endScores": [
+>     >             [10,9,8,9,10,10],
+>     >             [9,8,9,7,10,6]
+>     >         ],
+>     >         "bow":{
+>     >             "id":1,
+>     >             "name":"BowName",
+>     >             "description":"BowDescription",
+>     >             "length":68,
+>     >             "braceHeight":21,
+>     >             "bottomTiller":0,
+>     >             "topTiller":0
+>     >         }
+>     >     }
 >     > }
 >     > ```
 >   
@@ -162,20 +189,3 @@
 >   - Deleting sessions from history will remove it from `.txt` file and `db`
 
 ---
-
-```flowchart
-st=>start: Start|past
-e=>end: End|future
-op1=>operation: My Operation|past
-op2=>operation: Stuff|current
-sub1=>subroutine: My Subroutine|invalid
-cond=>condition: Yes
-or No?|approved:>http://www.google.com
-c2=>condition: Good idea|rejected
-io=>inputoutput: catch something...|future
-st->op1(right)->cond
-cond(yes, right)->c2
-cond(no)->sub1(left)->op1
-c2(yes)->io->e
-c2(no)->op2->e
-```
