@@ -42,7 +42,8 @@
                     android:id="@+id/bowList"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog" />
             </LinearLayout>
 
         </TableRow>
@@ -61,11 +62,11 @@
                 android:text="@string/add_new" />
 
             <Button
-                android:id="@+id/removeBow"
-                style="@style/buttonCancel"
+                android:id="@+id/editBow"
+                style="@style/buttonEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/remove_selected" />
+                android:text="@string/edit_selected" />
 
         </TableRow>
 

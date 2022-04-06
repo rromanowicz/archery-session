@@ -216,8 +216,8 @@ class NewSessionFragment : Fragment() {
         var items = arrayListOf(getString(R.string.no_bows_created))
 
         val db = DBHelper(requireContext(), null)
-        var bows = db.getSettings()?.bows
-        if (bows != null && bows.isNotEmpty()) {
+        val bows = db.getBows()
+        if (bows.isNotEmpty()) {
             items = bows.mapTo(arrayListOf()) { it.name }
         }
 

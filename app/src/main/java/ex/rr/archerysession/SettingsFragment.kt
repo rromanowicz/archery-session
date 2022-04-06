@@ -21,7 +21,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
 
-    private lateinit var sharedViewModel: SharedViewModel
+    private lateinit var viewModel: SharedViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
         updateSpinner()
 
@@ -46,24 +46,18 @@ class SettingsFragment : Fragment() {
             AddBowFragment().show(parentFragmentManager, AddBowFragment.TAG)
         }
 
-        binding.removeBow.setOnClickListener {
-            val db = DBHelper(requireContext(), null)
-            db.removeBow(binding.bowList.selectedItem.toString())
-            updateSpinner()
+        binding.editBow.setOnClickListener {
+//            val db = DBHelper(requireContext(), null)
+//            db.removeBow(binding.bowList.selectedItem.toString())
+//            updateSpinner()
+            AddBowFragment(binding.bowList.selectedItem.toString()).show(childFragmentManager, AddBowFragment.TAG)
         }
 
 
-        sharedViewModel.newBow.observe(requireActivity()) {
+        viewModel.newBow.observe(requireActivity()) {
             var msg = ""
             Log.d(this::class.java.name, "Received new bow from dialog.")
-            if (it != null && it == 0) {
-                msg = getString(R.string.bow_added)
-                updateSpinner()
-            } else if (it==1) {
-                msg = getString(R.string.bow_already_exists)
-            } else {
-                msg = getString(R.string.unexpected_error)
-            }
+            msg = getString(R.string.bow_added)
 
             Toast.makeText(
                 requireContext(),
@@ -72,18 +66,26 @@ class SettingsFragment : Fragment() {
             ).show()
         }
 
+        viewModel.reloadBows.observe(requireActivity()) {
+            Log.d(this::class.java.name, "Setting bow refresh flag.")
+            if (it != null && it) {
+                updateSpinner()
+                viewModel.setReloadBows()
+            }
+        }
+
     }
 
     private fun updateSpinner() {
         var items = arrayListOf("Nothing available")
 
         val db = DBHelper(requireContext(), null)
-        var bows = db.getSettings()?.bows
-        if (bows != null && bows.isNotEmpty()) {
+        val bows = db.getBows()
+        if (bows.isNotEmpty()) {
             items = bows.mapTo(arrayListOf()) { it.name }
         }
 
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, items)
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.bowList.adapter = adapter
     }
