@@ -22,7 +22,6 @@ import com.rr.archerysession.R
 import com.rr.archerysession.databinding.ActivityMainBinding
 import ex.rr.archerysession.db.DBHelper
 import ex.rr.archerysession.file.SessionFileProcessor
-import ex.rr.archerysession.file.SettingsFileProcessor
 
 
 class MainActivity : AppCompatActivity() {
@@ -98,12 +97,9 @@ class MainActivity : AppCompatActivity() {
     private fun syncFileWithDb() {
         val sessionFileProcessor = SessionFileProcessor()
         val sessionFile = sessionFileProcessor.getAllFromFile()
-//        val settingsFileProcessor = SettingsFileProcessor()
-//        val settingsFile = settingsFileProcessor.readSettings()
         val db = DBHelper(this, null)
         db.init()
         val allSessions = db.getAllSessions()
-//        val settings = db.getSettings()
 
         if (allSessions.isNotEmpty() && sessionFile.isNullOrEmpty()) {
             sessionFileProcessor.writeAll(allSessions)
