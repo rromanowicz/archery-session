@@ -152,12 +152,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                     bows.add(
                         Bow(id, name, description, length, braceHeight, topTiller, bottomTiller)
                     )
-                    cursor.close()
                 } catch (e: Exception) {
                     Log.e(this::class.java.name, e.message!!)
                 }
             }
         }
+        cursor.close()
         return bows
     }
 
