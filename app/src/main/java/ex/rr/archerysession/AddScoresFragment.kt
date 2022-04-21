@@ -51,12 +51,14 @@ class AddScoresFragment : DialogFragment() {
         submitButton.setOnClickListener {
             submitButton.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             if (scores.isNotEmpty()) {
+                scores.sortDescending()
                 viewModel.sendScores(scores)
             }
             dismiss()
         }
 
         addOnClickListener(view.findViewById<Button>(R.id.scoreButton_0), ::addScore, 0)
+        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_5), ::addScore, 5)
         addOnClickListener(view.findViewById<Button>(R.id.scoreButton_6), ::addScore, 6)
         addOnClickListener(view.findViewById<Button>(R.id.scoreButton_7), ::addScore, 7)
         addOnClickListener(view.findViewById<Button>(R.id.scoreButton_8), ::addScore, 8)
@@ -81,7 +83,6 @@ class AddScoresFragment : DialogFragment() {
         outputTextView = scores.toString()
         view?.findViewById<TextView>(R.id.scoresText1)?.text =
             ("${resources.getString(R.string.arrows)} [$shots] ${resources.getString(R.string.score)} [$totalScore]")
-
 
         view?.findViewById<TextView>(R.id.scoresText2)?.text = ("$scores")
     }

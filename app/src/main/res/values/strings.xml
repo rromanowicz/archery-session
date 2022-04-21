@@ -70,5 +70,6 @@
     <string name="top_tiller" translatable="false">Top Tiller</string>
     <string name="bottom_tiller" translatable="false">Bottom Tiller</string>
     <string name="edit_selected">Edit selected</string>
+    <string name="_5" translatable="false">5</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
