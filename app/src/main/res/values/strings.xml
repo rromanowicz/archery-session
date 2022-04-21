@@ -5,7 +5,6 @@
     <string name="second_fragment_label">New Session Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="action_new_session">New Session</string>
     <string name="action_history">History</string>
     <string name="main_fragment_label">Main</string>
@@ -16,7 +15,6 @@
     <string name="ends">Ends:</string>
     <string name="arrows">Arrows:</string>
     <string name="_0" translatable="false">0</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="add_scores_fragment_label">Add Scores</string>
     <string name="_6" translatable="false">6</string>
     <string name="_7" translatable="false">7</string>
@@ -52,7 +50,6 @@
     <string name="statistics_fragment_fragment_label">Statistics</string>
     <string name="settings_fragment_fragment_label">Settings</string>
     <string name="sum_arrow">Points:</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="add_new">Add new</string>
     <string name="remove_selected">Remove selected</string>
     <string name="your_bows">Your bows:</string>
@@ -71,5 +68,4 @@
     <string name="bottom_tiller" translatable="false">Bottom Tiller</string>
     <string name="edit_selected">Edit selected</string>
     <string name="_5" translatable="false">5</string>
-    <!-- TODO: Remove or change this placeholder text -->
 </resources>
