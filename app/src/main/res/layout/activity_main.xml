@@ -31,6 +31,25 @@
         android:visibility="gone" />
 
     <LinearLayout
+        android:id="@+id/fabLayout0"
+        android:layout_marginBottom="@dimen/fab_5th_child_Margin_bottom"
+        style="@style/fabChildContainer">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/fabChildText"
+            android:text="@string/action_home" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab0"
+            style="@style/fabChild"
+            app:backgroundTint="@color/closeBtn"
+            app:srcCompat="@android:drawable/ic_menu_today"
+            android:contentDescription="@string/action_home" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/fabLayout1"
         android:layout_marginBottom="@dimen/fab_4th_child_Margin_bottom"
         style="@style/fabChildContainer">
@@ -44,6 +63,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab1"
             style="@style/fabChild"
+            app:backgroundTint="@color/closeBtn"
             app:srcCompat="@android:drawable/ic_input_add"
             android:contentDescription="@string/action_new_session" />
     </LinearLayout>
@@ -62,6 +82,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab2"
             style="@style/fabChild"
+            app:backgroundTint="@color/closeBtn"
             app:srcCompat="?android:attr/actionModeFindDrawable"
             android:contentDescription="@string/action_history" />
     </LinearLayout>
@@ -81,6 +102,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab3"
             style="@style/fabChild"
+            app:backgroundTint="@color/closeBtn"
             android:contentDescription="@string/action_statistics"
             app:srcCompat="@android:drawable/ic_menu_sort_by_size" />
     </LinearLayout>
@@ -100,6 +122,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab4"
             style="@style/fabChild"
+            app:backgroundTint="@color/closeBtn"
             app:srcCompat="@android:drawable/ic_dialog_info"
             android:contentDescription="@string/action_settings" />
     </LinearLayout>
@@ -111,9 +134,10 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             style="@style/fabParent"
+            android:contentDescription="@string/dummy"
+            app:backgroundTint="@color/closeBtn"
             app:srcCompat="@android:drawable/ic_dialog_dialer"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:contentDescription="@string/dummy" />
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

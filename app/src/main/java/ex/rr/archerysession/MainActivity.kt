@@ -72,6 +72,11 @@ class MainActivity : AppCompatActivity() {
         fabBGLayout.setOnClickListener { closeFABMenu() }
 
 
+        binding.fab0.setOnClickListener {
+            closeFABMenu()
+            findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_MainFragment)
+        }
+
         binding.fab1.setOnClickListener {
             closeFABMenu()
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_NewSessionFragment)
@@ -116,12 +121,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showFABMenu() {
+        binding.fabLayout0.visibility = View.VISIBLE
         binding.fabLayout1.visibility = View.VISIBLE
         binding.fabLayout2.visibility = View.VISIBLE
         binding.fabLayout3.visibility = View.VISIBLE
         binding.fabLayout4.visibility = View.VISIBLE
         fabBGLayout.visibility = View.VISIBLE
         binding.fab.animate().rotationBy(180F)
+        binding.fabLayout0.animate().translationY(-resources.getDimension(R.dimen.standard_255))
         binding.fabLayout1.animate().translationY(-resources.getDimension(R.dimen.standard_210))
         binding.fabLayout2.animate().translationY(-resources.getDimension(R.dimen.standard_165))
         binding.fabLayout3.animate().translationY(-resources.getDimension(R.dimen.standard_120))
@@ -131,6 +138,7 @@ class MainActivity : AppCompatActivity() {
     private fun closeFABMenu() {
         fabBGLayout.visibility = View.GONE
         binding.fab.animate().rotation(0F)
+        binding.fabLayout0.animate().translationY(0f)
         binding.fabLayout1.animate().translationY(0f)
         binding.fabLayout2.animate().translationY(0f)
         binding.fabLayout3.animate().translationY(0f)
@@ -139,6 +147,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onAnimationStart(animator: Animator) {}
                 override fun onAnimationEnd(animator: Animator) {
                     if (View.GONE == fabBGLayout.visibility) {
+                        binding.fabLayout0.visibility = View.GONE
                         binding.fabLayout1.visibility = View.GONE
                         binding.fabLayout2.visibility = View.GONE
                         binding.fabLayout3.visibility = View.GONE
@@ -160,6 +169,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.action_home -> {
+                findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_MainFragment)
+                return true
+            }
             R.id.action_new_session -> {
                 findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_NewSessionFragment)
                 return true
