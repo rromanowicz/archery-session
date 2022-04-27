@@ -54,4 +54,5 @@
     <string name="length">Długość</string>
     <string name="edit_selected">Edycja</string>
     <string name="bow_removed">Łuk usunięty.</string>
+    <string name="action_home">Strona główna</string>
 </resources>

@@ -16,5 +16,7 @@
     <color name="confirm">#4CAF50</color>
     <color name="cancel">#E91E63</color>
     <color name="edit">#E9D51E</color>
+    <color name="grey_1">#46484A</color>
+    <color name="grey_2">#323435</color>
 </resources>
 

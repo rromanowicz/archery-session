@@ -78,6 +78,7 @@ class NewSessionFragment : Fragment() {
             AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
         }
 
+        setView()
         updateSpinner()
     }
 
@@ -188,7 +189,7 @@ class NewSessionFragment : Fragment() {
             binding.buttonEnd.backgroundTintList =
                 ColorStateList.valueOf(
                     resources.getColor(
-                        R.color.colorPrimary,
+                        R.color.cancel,
                         requireContext().theme
                     )
                 )
@@ -201,7 +202,7 @@ class NewSessionFragment : Fragment() {
             binding.buttonStart.backgroundTintList =
                 ColorStateList.valueOf(
                     resources.getColor(
-                        R.color.colorPrimary,
+                        R.color.confirm,
                         requireContext().theme
                     )
                 )
