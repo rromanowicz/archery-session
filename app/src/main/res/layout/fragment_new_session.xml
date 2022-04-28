@@ -42,6 +42,7 @@
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_end_scores"
             style="@style/fabParent"
+            app:backgroundTint="@color/closeBtn"
             app:fabCustomSize="@dimen/fab_parent_size"
             app:srcCompat="@android:drawable/ic_input_add"
             tools:ignore="SpeakableTextPresentCheck"
