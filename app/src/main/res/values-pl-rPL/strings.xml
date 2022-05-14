@@ -55,4 +55,12 @@
     <string name="edit_selected">Edycja</string>
     <string name="bow_removed">Łuk usunięty.</string>
     <string name="action_home">Strona główna</string>
+    <string name="target">Cel</string>
+    <string name="distance">Odległość</string>
+    <string name="target_distance">Odległość celu</string>
+    <string name="remove">Usuń</string>
+    <string name="add">Dodaj</string>
+    <string name="target_distance_added">Odległość dodana.</string>
+    <string name="target_distance_removed">Odległość usunięta.</string>
+    <string name="nothing_available">Brak danych.</string>
 </resources>
