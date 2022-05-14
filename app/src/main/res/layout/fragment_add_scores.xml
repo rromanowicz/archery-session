@@ -43,19 +43,19 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/scoreButton_5"
+                    android:id="@+id/scoreButton_10"
                     style="@style/scoreButton"
-                    android:text="@string/_5" />
+                    android:text="@string/_10" />
 
                 <Button
-                    android:id="@+id/scoreButton_6"
-                    android:text="@string/_6"
-                    style="@style/scoreButton" />
+                    android:id="@+id/scoreButton_9"
+                    style="@style/scoreButton"
+                    android:text="@string/_9" />
 
                 <Button
-                    android:id="@+id/scoreButton_7"
+                    android:id="@+id/scoreButton_8"
                     style="@style/scoreButton"
-                    android:text="@string/_7" />
+                    android:text="@string/_8" />
 
             </LinearLayout>
 
@@ -65,38 +65,58 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/scoreButton_8"
-                    android:text="@string/_8"
-                    style="@style/scoreButton" />
-
-                <Button
-                    android:id="@+id/scoreButton_9"
-                    android:text="@string/_9"
-                    style="@style/scoreButton" />
-
-                <Button
-                    android:id="@+id/scoreButton_10"
+                    android:id="@+id/scoreButton_7"
                     style="@style/scoreButton"
-                    android:text="@string/_10" />
+                    android:text="@string/_7" />
+
+                <Button
+                    android:id="@+id/scoreButton_6"
+                    style="@style/scoreButton"
+                    android:text="@string/_6" />
+
+                <Button
+                    android:id="@+id/scoreButton_5"
+                    style="@style/scoreButton"
+                    android:text="@string/_5" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/scoreButton_4"
+                    style="@style/scoreButton"
+                    android:text="@string/_4" />
+
+                <Button
+                    android:id="@+id/scoreButton_3"
+                    style="@style/scoreButton"
+                    android:text="@string/_3" />
+
+                <Button
+                    android:id="@+id/scoreButton_2"
+                    style="@style/scoreButton"
+                    android:text="@string/_2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/scoreButton_1"
+                    style="@style/scoreButton"
+                    android:text="@string/_1" />
 
                 <Button
                     android:id="@+id/scoreButton_0"
                     style="@style/scoreButton"
                     android:text="@string/_0" />
-
-                <Button
-                    android:id="@+id/dummyButton"
-                    style="@style/scoreButton"
-                    android:visibility="invisible"
-                    android:text="" />
 
                 <ImageButton
                     android:id="@+id/scoreButton_delete"
@@ -110,7 +130,8 @@
         <Button
             android:id="@+id/submitButton"
             android:text="@string/submit"
-            style="@style/buttonActive"/>
+            style="@style/buttonActive"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
 </RelativeLayout>

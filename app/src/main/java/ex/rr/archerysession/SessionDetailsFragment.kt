@@ -109,6 +109,10 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
             MainFragment.formatter.format(lastSession.session.endDate!!)
         binding.bow.text =
             lastSession.session.bow?.name ?: ""
+        binding.target.text =
+            lastSession.session.target ?: ""
+        binding.distance.text =
+            if (lastSession.session.distance != null) lastSession.session.distance + "m" else ""
         binding.endCount.text =
             lastSession.session.ends.toString()
         binding.arrowCount.text =

@@ -13,6 +13,7 @@ class SharedViewModel : ViewModel() {
     var endSession = MutableLiveData<Boolean?>()
     var newBow = MutableLiveData<Int?>()
     var updateBow = MutableLiveData<Int?>()
+    var targetScores = MutableLiveData<IntRange?>()
 
     fun sendScores(values: MutableList<Int>) {
         scores.value = values
@@ -38,12 +39,16 @@ class SharedViewModel : ViewModel() {
         endSession.value = endSession.value == null || endSession.value == false
     }
 
-    fun sendNewBow(value: Int){
+    fun sendNewBow(value: Int) {
         newBow.value = value
     }
 
-    fun sendUpdateBow(value: Int){
+    fun sendUpdateBow(value: Int) {
         updateBow.value = value
+    }
+
+    fun sendTargetScores(value: IntRange) {
+        targetScores.value = value
     }
 
     fun clear() {
@@ -53,5 +58,7 @@ class SharedViewModel : ViewModel() {
         reloadHistory.value = null
         endSession.value = null
         newBow.value = null
+        updateBow.value = null
+        targetScores.value = null
     }
 }

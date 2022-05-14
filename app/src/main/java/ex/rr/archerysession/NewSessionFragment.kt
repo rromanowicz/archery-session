@@ -1,5 +1,7 @@
 package ex.rr.archerysession
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
 import ex.rr.archerysession.data.Session
+import ex.rr.archerysession.data.Target
 import ex.rr.archerysession.db.DBHelper
 import ex.rr.archerysession.file.SessionFileProcessor
 import kotlinx.coroutines.runBlocking
@@ -35,7 +38,6 @@ class NewSessionFragment : Fragment() {
     private lateinit var sharedViewModel: SharedViewModel
     private var session: Session? = null
     private lateinit var endsView: LinearLayout
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +81,9 @@ class NewSessionFragment : Fragment() {
         }
 
         setView()
-        updateSpinner()
+        updateBowSpinner()
+        updateTargetSpinner()
+        updateDistanceSpinner()
     }
 
     private fun updateResults() {
@@ -112,6 +116,12 @@ class NewSessionFragment : Fragment() {
             null
         ).getBowByName(binding.bowSelector.selectedItem.toString())
 
+        session!!.target = binding.targetSelector.selectedItem.toString()
+
+        session!!.distance = binding.distanceSelector.selectedItem.toString()
+
+        sharedViewModel.sendTargetScores(Target.fromDesc(session!!.target!!)!!.pointRange)
+
         binding.endsText.text = ""
         sessionRunning = true
         setView()
@@ -139,7 +149,10 @@ class NewSessionFragment : Fragment() {
         if (session!!.arrows != 0) {
             val db = DBHelper(requireContext(), null)
             val sessionId = db.addSession(session!!)
-            Log.d(this::class.java.name, "Saved session with id: $sessionId, ${session!!.getJSON()}")
+            Log.d(
+                this::class.java.name,
+                "Saved session with id: $sessionId, ${session!!.getJSON()}"
+            )
             SessionFileProcessor().saveToFile(sessionId, session!!)
         }
 
@@ -181,7 +194,9 @@ class NewSessionFragment : Fragment() {
         if (sessionRunning) {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.GONE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.GONE
-            (activity as MainActivity).findViewById<View>(R.id.bowSelector).visibility = View.GONE
+            binding.bowSelector.visibility = View.GONE
+            binding.targetSelector.visibility = View.GONE
+            binding.distanceSelector.visibility = View.GONE
             binding.addEndScoreLayout.visibility = View.VISIBLE
             binding.buttonStart.backgroundTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.inactive, requireContext().theme))
@@ -197,7 +212,9 @@ class NewSessionFragment : Fragment() {
         } else {
             (activity as MainActivity).findViewById<View>(R.id.fab).visibility = View.VISIBLE
             (activity as MainActivity).findViewById<View>(R.id.toolbar).visibility = View.VISIBLE
-            (activity as MainActivity).findViewById<View>(R.id.bowSelector).visibility = View.VISIBLE
+            binding.bowSelector.visibility = View.VISIBLE
+            binding.targetSelector.visibility = View.VISIBLE
+            binding.distanceSelector.visibility = View.VISIBLE
             binding.addEndScoreLayout.visibility = View.INVISIBLE
             binding.buttonStart.backgroundTintList =
                 ColorStateList.valueOf(
@@ -213,7 +230,7 @@ class NewSessionFragment : Fragment() {
         }
     }
 
-    private fun updateSpinner() {
+    private fun updateBowSpinner() {
         var items = arrayListOf(getString(R.string.no_bows_created))
 
         val db = DBHelper(requireContext(), null)
@@ -225,5 +242,28 @@ class NewSessionFragment : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.bowSelector.adapter = adapter
+    }
+
+    private fun updateTargetSpinner() {
+        val items = Target.values().map(Target::description)
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.targetSelector.adapter = adapter
+    }
+
+    private fun updateDistanceSpinner() {
+        val items = arrayListOf(getString(R.string.nothing_available))
+
+        val db = DBHelper(requireContext(), null)
+        val targetDistanceList = db.getTargetDistanceList()
+        if (targetDistanceList.isNotEmpty()) {
+            items.clear()
+            targetDistanceList.forEach { items.add(it + "m") }
+        }
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.distanceSelector.adapter = adapter
     }
 }
