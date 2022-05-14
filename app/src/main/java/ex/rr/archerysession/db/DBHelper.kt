@@ -21,6 +21,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                 ")")
         db.execSQL(sessionQuery)
 
+        val targetDistanceQuery = ("CREATE TABLE IF NOT EXISTS " + TARGET_DISTANCE_TABLE_NAME + " ("
+                + ID_COL + " INTEGER PRIMARY KEY, " +
+                TARGET_DISTANCE_COL + " TEXT" +
+                ")")
+        db.execSQL(targetDistanceQuery)
+
         val bowsQuery = ("CREATE TABLE IF NOT EXISTS " + BOWS_TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY, "
                 + NAME_COL + " TEXT UNIQUE, "
@@ -36,6 +42,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
         db.execSQL("DROP TABLE IF EXISTS $SESSIONS_TABLE_NAME")
         db.execSQL("DROP TABLE IF EXISTS $BOWS_TABLE_NAME")
+        db.execSQL("DROP TABLE IF EXISTS $TARGET_DISTANCE_TABLE_NAME")
         onCreate(db)
     }
 
@@ -190,6 +197,46 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return getBows().firstOrNull { it.name == name }
     }
 
+    fun addTargetDistance(distance: String): Long {
+        val values = ContentValues()
+        values.put(TARGET_DISTANCE_COL, distance)
+        val db = this.writableDatabase
+        val savedItemId = db.insert(TARGET_DISTANCE_TABLE_NAME, null, values)
+        db.close()
+        return savedItemId
+    }
+
+    fun removeTargetDistance(distance: String) {
+        val db = this.writableDatabase
+        db.delete(TARGET_DISTANCE_TABLE_NAME, "$TARGET_DISTANCE_COL = $distance", null)
+        db.close()
+    }
+
+    fun getTargetDistanceList(): MutableList<String> {
+        return toTargetDistanceList(
+            this.readableDatabase.rawQuery("SELECT * FROM $TARGET_DISTANCE_TABLE_NAME", null)
+        )
+    }
+
+    private fun toTargetDistanceList(cursor: Cursor?): MutableList<String> {
+        val targetDistanceList: MutableList<String> = mutableListOf()
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                try {
+                    val index = cursor.getColumnIndex(TARGET_DISTANCE_COL)
+                    val value = cursor.getString(index)
+                    targetDistanceList.add(value)
+                } catch (e: Exception) {
+                    Log.e(this::class.java.name, e.message!!)
+                }
+            }
+        }
+        Log.d(
+            this::class.java.name,
+            "Retrieved ${targetDistanceList.size} records from database."
+        )
+        return targetDistanceList
+    }
 
     fun init() {
         onCreate(this.writableDatabase)
@@ -200,6 +247,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         private const val DATABASE_VERSION = 1
         private const val SESSIONS_TABLE_NAME = "sessions"
         private const val BOWS_TABLE_NAME = "bows"
+        private const val TARGET_DISTANCE_TABLE_NAME = "target_distance"
         private const val ID_COL = "id"
         private const val SESSION_COl = "session_json"
         private const val NAME_COL = "name"
@@ -208,5 +256,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         private const val BRACE_HEIGHT_COL = "brace_height"
         private const val TOP_TILLER_COL = "top_tiller"
         private const val BOTTOM_TILLER_COL = "bottom_tiller"
+        private const val TARGET_DISTANCE_COL = "target_distance"
     }
 }

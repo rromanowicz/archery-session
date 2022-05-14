@@ -16,7 +16,12 @@ data class Session(
     @SerializedName("endScores")
     var scores: MutableList<MutableList<Int>> = mutableListOf(),
     @SerializedName("bow")
-    var bow: Bow? = null
+    var bow: Bow? = null,
+    @SerializedName("target")
+    var target: String? = null,
+    @SerializedName("distance")
+    var distance: String? = null
+
 ) {
 
     fun addEndScores(scores: MutableList<Int>) {
@@ -39,12 +44,15 @@ data class Session(
         return Gson().toJson(this)
     }
 
-    fun clear(){
+    fun clear() {
         this.startDate = Date()
         this.endDate = null
         this.ends = 0
         this.arrows = 0
         this.scores = mutableListOf()
+        this.bow = null
+        this.target = null
+        this.distance = null
     }
 
 }

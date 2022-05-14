@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
+import ex.rr.archerysession.data.ScoreButtons
 
 
 class AddScoresFragment : DialogFragment() {
@@ -15,6 +16,7 @@ class AddScoresFragment : DialogFragment() {
     private var shots = 0
     private var totalScore = 0
     private var outputTextView = ""
+
 
     companion object {
         const val TAG = "AddScoresFragment"
@@ -36,6 +38,7 @@ class AddScoresFragment : DialogFragment() {
         scores = mutableListOf()
         updateScore()
         setupClickListeners(view)
+        updateButtonDisplay(view)
     }
 
     override fun onStart() {
@@ -57,13 +60,9 @@ class AddScoresFragment : DialogFragment() {
             dismiss()
         }
 
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_0), ::addScore, 0)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_5), ::addScore, 5)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_6), ::addScore, 6)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_7), ::addScore, 7)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_8), ::addScore, 8)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_9), ::addScore, 9)
-        addOnClickListener(view.findViewById<Button>(R.id.scoreButton_10), ::addScore, 10)
+        ScoreButtons.values().forEach {
+            addOnClickListener(view.findViewById<Button>(it.id), ::addScore, it.points)
+        }
         addOnClickListener(view.findViewById<Button>(R.id.scoreButton_delete), ::removeScore)
     }
 
@@ -91,6 +90,32 @@ class AddScoresFragment : DialogFragment() {
         view.setOnClickListener {
             view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             func(value)
+        }
+    }
+
+    private fun updateButtonDisplay(view: View) {
+        val pointRange = viewModel.targetScores.value ?: return
+
+        hideButtons(pointRange, view)
+//        when (pointRange.first) {
+//            in 1..4 -> return
+//            5 -> hideButtons(pointRange, view)
+//            in 6..10 -> {
+//                hideButtons(pointRange, view)
+//            }
+//        }
+
+    }
+
+    private fun hideButtons(range: IntRange, view: View) {
+        ScoreButtons.values().forEach {
+            if (it.points == 0) return@forEach
+            if (it.points !in range) {
+                view.findViewById<Button>(it.id).visibility =
+                    if (it.points == 1) View.INVISIBLE else View.GONE
+            } else {
+                view.findViewById<Button>(it.id).visibility = View.VISIBLE
+            }
         }
     }
 

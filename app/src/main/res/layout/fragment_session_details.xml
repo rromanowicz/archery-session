@@ -102,6 +102,38 @@
                     android:layout_height="match_parent">
 
                     <TextView
+                        android:id="@+id/targetLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/target" />
+
+                    <TextView
+                        android:id="@+id/target"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/distanceLabel"
+                        style="@style/tableLabel"
+                        android:text="@string/distance" />
+
+                    <TextView
+                        android:id="@+id/distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
                         android:id="@+id/endCountLabel"
                         style="@style/tableLabel"
                         android:text="@string/ends" />
