@@ -40,44 +40,66 @@ class SettingsFragment : Fragment() {
 
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
 
-        updateSpinner()
+        updateBowSpinner()
+        updateDistanceSpinner()
 
         binding.addBow.setOnClickListener {
             AddBowFragment().show(parentFragmentManager, AddBowFragment.TAG)
         }
 
         binding.editBow.setOnClickListener {
-//            val db = DBHelper(requireContext(), null)
-//            db.removeBow(binding.bowList.selectedItem.toString())
-//            updateSpinner()
-            AddBowFragment(binding.bowList.selectedItem.toString()).show(childFragmentManager, AddBowFragment.TAG)
+            AddBowFragment(binding.bowList.selectedItem.toString()).show(
+                childFragmentManager,
+                AddBowFragment.TAG
+            )
         }
 
+        binding.addDistance.setOnClickListener {
+            val distance = binding.targetDistance.text.toString()
+            if (distance.isNotEmpty()) {
+                val db = DBHelper(requireContext(), null)
+                db.addTargetDistance(distance)
+                binding.targetDistance.setText("")
+                binding.targetDistance.clearFocus()
+                updateDistanceSpinner()
+                makeToast(getString(R.string.target_distance_added))
+            }
+        }
+
+        binding.removeDistance.setOnClickListener {
+            val db = DBHelper(requireContext(), null)
+            db.removeTargetDistance(binding.targetDistanceList.selectedItem.toString())
+            binding.targetDistance.setText("")
+            binding.targetDistance.clearFocus()
+            updateDistanceSpinner()
+            makeToast(getString(R.string.target_distance_removed))
+        }
 
         viewModel.newBow.observe(requireActivity()) {
             var msg = ""
             Log.d(this::class.java.name, "Received new bow from dialog.")
-            msg = getString(R.string.bow_added)
-
-            Toast.makeText(
-                requireContext(),
-                msg,
-                Toast.LENGTH_SHORT
-            ).show()
+            makeToast(getString(R.string.bow_added))
         }
 
         viewModel.reloadBows.observe(requireActivity()) {
             Log.d(this::class.java.name, "Setting bow refresh flag.")
             if (it != null && it) {
-                updateSpinner()
+                updateBowSpinner()
                 viewModel.setReloadBows()
             }
         }
-
     }
 
-    private fun updateSpinner() {
-        var items = arrayListOf("Nothing available")
+    private fun makeToast(msg: String) {
+        Toast.makeText(
+            requireContext(),
+            msg,
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun updateBowSpinner() {
+        var items = arrayListOf(getString(R.string.nothing_available))
 
         val db = DBHelper(requireContext(), null)
         val bows = db.getBows()
@@ -89,5 +111,20 @@ class SettingsFragment : Fragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.bowList.adapter = adapter
     }
+
+    private fun updateDistanceSpinner() {
+        var items = arrayListOf(getString(R.string.nothing_available))
+
+        val db = DBHelper(requireContext(), null)
+        val targetDistanceList = db.getTargetDistanceList()
+        if (targetDistanceList.isNotEmpty()) {
+            items = ArrayList(targetDistanceList)
+        }
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_item, items)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.targetDistanceList.adapter = adapter
+    }
+
 
 }

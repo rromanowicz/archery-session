@@ -69,4 +69,16 @@
     <string name="edit_selected">Edit selected</string>
     <string name="_5" translatable="false">5</string>
     <string name="action_home">Home</string>
+    <string name="_4" translatable="false">4</string>
+    <string name="_3" translatable="false">3</string>
+    <string name="_2" translatable="false">2</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="target">Target</string>
+    <string name="distance">Distance</string>
+    <string name="target_distance">Target distance</string>
+    <string name="remove">Remove</string>
+    <string name="add">Add</string>
+    <string name="target_distance_added">Target distance added.</string>
+    <string name="target_distance_removed">Target distance removed.</string>
+    <string name="nothing_available">Nothing available</string>
 </resources>
