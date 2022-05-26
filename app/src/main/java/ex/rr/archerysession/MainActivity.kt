@@ -15,13 +15,16 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.snackbar.Snackbar
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
+import com.rr.archerysession.BuildConfig
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.ActivityMainBinding
 import ex.rr.archerysession.db.DBHelper
 import ex.rr.archerysession.file.SessionFileProcessor
+import org.json.JSONObject
 
 
 class MainActivity : AppCompatActivity() {
@@ -97,6 +100,18 @@ class MainActivity : AppCompatActivity() {
             findNavController(R.id.nav_host_fragment_content_main).navigate(R.id.to_SettingsFragment)
         }
 
+
+        val nevVersionUrl = versionCheck()
+        if (nevVersionUrl.isNotBlank()) {
+            val snackbar = Snackbar.make(binding.coordinatorlayout, "New Version available!", Snackbar.LENGTH_LONG)
+            snackbar.setBackgroundTint(resources.getColor(R.color.black, this.theme))
+            snackbar.setTextColor(resources.getColor(R.color.white, this.theme))
+            snackbar.setAction("WWW", View.OnClickListener {
+                val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(nevVersionUrl))
+                startActivity(browserIntent)
+            })
+            snackbar.show()
+        }
     }
 
     private fun syncFileWithDb() {
@@ -198,6 +213,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+
+    private fun versionCheck(): String {
+        val versionName: String = BuildConfig.VERSION_NAME
+        val response = JSONObject(VersionChecker().exec())
+        val name = response.getJSONArray("assets").getJSONObject(0).getString("name")
+        val appUrl = response.getString("html_url")
+        return if(!name.contains(versionName)) appUrl else ""
     }
 
 }
