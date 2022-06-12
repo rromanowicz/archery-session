@@ -217,11 +217,15 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun versionCheck(): String {
-        val versionName: String = BuildConfig.VERSION_NAME
-        val response = JSONObject(VersionChecker().exec())
-        val name = response.getJSONArray("assets").getJSONObject(0).getString("name")
-        val appUrl = response.getString("html_url")
-        return if(!name.contains(versionName)) appUrl else ""
+        return try {
+            val versionName: String = BuildConfig.VERSION_NAME
+            val response = JSONObject(VersionChecker().exec())
+            val name = response.getJSONArray("assets").getJSONObject(0).getString("name")
+            val appUrl = response.getString("html_url")
+            if (!name.contains(versionName)) appUrl else ""
+        } catch (e: Exception) {
+            ""
+        }
     }
 
 }
