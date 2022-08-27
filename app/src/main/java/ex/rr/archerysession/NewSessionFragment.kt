@@ -1,7 +1,6 @@
 package ex.rr.archerysession
 
-import android.content.Context
-import android.content.SharedPreferences
+import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.Handler
@@ -17,6 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
 import com.rr.archerysession.databinding.FragmentNewSessionBinding
+import ex.rr.archerysession.data.EndScores
 import ex.rr.archerysession.data.Session
 import ex.rr.archerysession.data.Target
 import ex.rr.archerysession.db.DBHelper
@@ -77,7 +77,7 @@ class NewSessionFragment : Fragment() {
         sessionTime = binding.sessionTimeValue
 
         binding.addEndScores.setOnClickListener {
-            AddScoresFragment().show(parentFragmentManager, AddScoresFragment.TAG)
+            AddScoresFragment(session!!).show(parentFragmentManager, AddScoresFragment.TAG)
         }
 
         setView()
@@ -86,23 +86,45 @@ class NewSessionFragment : Fragment() {
         updateDistanceSpinner()
     }
 
-    private fun updateResults() {
+    private fun updateResults(end: EndScores) {
+        if(!session!!.scoreMap.containsKey(end.id)){
+            addEnd(end)
+        } else {
+            updateEnd(end)
+        }
+
         binding.endsValue.text = session!!.ends.toString()
-        binding.arrowsValue.text = session!!.arrows.toString()
+        binding.arrowsValue.text = session!!.getTotalArrows().toString()
         binding.endsScrollView.post {
             binding.endsScrollView.fullScroll(View.FOCUS_DOWN)
         }
-
-        val lastEnd = session!!.scores[session!!.scores.lastIndex]
-
-        binding.endsText.append(
-            "${session!!.ends}: ${activity?.getString(R.string.arrows)} ${lastEnd.size}, ${
-                activity?.getString(
-                    R.string.total_score
-                )
-            } ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n"
-        )
     }
+
+    private fun updateEnd(end: EndScores) {
+        session!!.addEndScores(end)
+        val textView = (activity as MainActivity).findViewById<TextView>(end.id!!)
+        textView.text = getEndText(end.endScores!!)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun addEnd(end: EndScores) {
+        session!!.addEndScores(end)
+        val textView = TextView(requireContext())
+        textView.id = end.id!!
+        textView.text = getEndText(end.endScores!!)
+
+        textView.setOnClickListener {
+            AddScoresFragment(session!!, end.endScores, end.id).show(parentFragmentManager, AddScoresFragment.TAG)
+        }
+        endsView.addView(textView)
+    }
+
+    private fun getEndText(lastEnd: MutableList<Int>) =
+        "${session!!.ends}: ${activity?.getString(R.string.arrows)} ${lastEnd.size}, ${
+            activity?.getString(
+                R.string.total_score
+            )
+        } ${lastEnd.sumOf { it1 -> it1 }}\n\t\t\t$lastEnd\n"
 
     private fun sessionStart() {
         if (session == null) {
@@ -129,9 +151,8 @@ class NewSessionFragment : Fragment() {
 
         sharedViewModel.scores.observe(requireActivity()) {
             Log.d(this::class.java.name, "Received scores from dialog.")
-            if (it != null && it.isNotEmpty()) {
-                session!!.addEndScores(it)
-                updateResults()
+            if (it != null && it.endScores!!.isNotEmpty()) {
+                updateResults(it)
             }
         }
 

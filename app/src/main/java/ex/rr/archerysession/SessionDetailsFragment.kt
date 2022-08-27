@@ -112,22 +112,22 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
         binding.target.text =
             lastSession.session.target ?: ""
         binding.distance.text =
-            if (lastSession.session.distance != null) lastSession.session.distance + "m" else ""
+            if (lastSession.session.distance != null) lastSession.session.distance else ""
         binding.endCount.text =
             lastSession.session.ends.toString()
         binding.arrowCount.text =
             lastSession.session.arrows.toString()
         binding.sumArrowValue.text =
-            lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }.toString()
+            lastSession.session.getTotalScore().toString()
         binding.avgArrowValue.text = String.format("%.2f",
-            lastSession.session.scores.sumOf { t -> t.sumOf { x -> x } }
+            lastSession.session.getTotalScore()
                 .div(lastSession.session.arrows.toDouble()))
 
         var i = 0
-        lastSession.session.scores.forEach { score ->
+        lastSession.session.scoreMap.forEach { score ->
             val formattedScores: MutableList<String> = mutableListOf()
-            val endSum = score.sumOf { it }
-            for (s in score) {
+            val endSum = score.value.sumOf { it }
+            for (s in score.value) {
                 formattedScores.add(if (s.toString().length == 1) " \t$s" else "$s")
             }
             addTextView("${++i}: [${if (endSum.toString().length == 1) "0$endSum" else "$endSum"}] \t$formattedScores")

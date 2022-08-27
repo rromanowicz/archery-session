@@ -67,11 +67,9 @@ class HistoryFragment : Fragment() {
             historyItem.findViewById<TextView>(R.id.endsValue).text = it.session.ends.toString()
             historyItem.findViewById<TextView>(R.id.arrowsValue).text = it.session.arrows.toString()
             historyItem.findViewById<TextView>(R.id.sumArrowValue).text =
-                it.session.scores.sumOf { t -> t.sumOf { x -> x } }.toString()
+                it.session.getTotalScore().toString()
             historyItem.findViewById<TextView>(R.id.avgArrowValue).text = String.format(
-                "%.2f",
-                it.session.scores.sumOf { t -> t.sumOf { x -> x } }
-                    .div(it.session.arrows.toDouble())
+                "%.2f", it.session.getTotalScore().div(it.session.arrows.toDouble())
             )
 
             val id = it.id
