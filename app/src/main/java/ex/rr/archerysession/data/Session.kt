@@ -14,7 +14,7 @@ data class Session(
     @SerializedName("numberOfArrows")
     var arrows: Int = 0,
     @SerializedName("endScores")
-    var scores: MutableList<MutableList<Int>> = mutableListOf(),
+    var scoreMap: MutableMap<Int, MutableList<Int>> = mutableMapOf(),
     @SerializedName("bow")
     var bow: Bow? = null,
     @SerializedName("target")
@@ -24,11 +24,11 @@ data class Session(
 
 ) {
 
-    fun addEndScores(scores: MutableList<Int>) {
-        if (scores.isNotEmpty()) {
-            this.ends++
-            this.arrows += scores.size
-            this.scores.add(scores)
+    fun addEndScores(endScores: EndScores) {
+        if (endScores.endScores!!.isNotEmpty()) {
+            this.scoreMap[endScores.id!!] = endScores.endScores!!
+            this.ends = getTotalEnds()
+            this.arrows = getTotalArrows()
         }
     }
 
@@ -37,7 +37,19 @@ data class Session(
     }
 
     fun getTotalScore(): Int {
-        return scores.sumOf { it -> it.sumOf { it } }
+        var result: Int = 0
+        scoreMap.forEach{ entry -> result += entry.value.sumOf { it }}
+        return result
+    }
+
+    fun getTotalArrows(): Int {
+        var result: Int = 0
+        scoreMap.forEach{ entry -> result += entry.value.size}
+        return result
+    }
+
+    fun getTotalEnds(): Int {
+        return scoreMap.size
     }
 
     fun getJSON(): String {
@@ -49,7 +61,7 @@ data class Session(
         this.endDate = null
         this.ends = 0
         this.arrows = 0
-        this.scores = mutableListOf()
+        this.scoreMap = mutableMapOf()
         this.bow = null
         this.target = null
         this.distance = null

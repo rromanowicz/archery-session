@@ -2,10 +2,11 @@ package ex.rr.archerysession
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ex.rr.archerysession.data.EndScores
 import ex.rr.archerysession.data.Session
 
 class SharedViewModel : ViewModel() {
-    var scores = MutableLiveData<MutableList<Int>?>()
+    var scores = MutableLiveData<EndScores>()
     var session = MutableLiveData<Session?>()
     var sessionId = MutableLiveData<String?>()
     var reloadHistory = MutableLiveData<Boolean?>()
@@ -15,8 +16,8 @@ class SharedViewModel : ViewModel() {
     var updateBow = MutableLiveData<Int?>()
     var targetScores = MutableLiveData<IntRange?>()
 
-    fun sendScores(values: MutableList<Int>) {
-        scores.value = values
+    fun sendScores(endScores: EndScores) {
+        scores.value = endScores
     }
 
     fun sendSession(value: Session) {

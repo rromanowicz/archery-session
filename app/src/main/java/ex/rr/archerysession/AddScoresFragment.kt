@@ -7,19 +7,29 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
 import com.rr.archerysession.R
+import ex.rr.archerysession.data.EndScores
 import ex.rr.archerysession.data.ScoreButtons
+import ex.rr.archerysession.data.Session
 
 
-class AddScoresFragment : DialogFragment() {
+class AddScoresFragment(session: Session, scores: MutableList<Int>? = null, endId: Int? = null) : DialogFragment() {
 
-    private lateinit var scores: MutableList<Int>
+    private var scores: MutableList<Int>? = null
+    private var endId: Int? = null
     private var shots = 0
     private var totalScore = 0
     private var outputTextView = ""
+    private var session: Session
 
 
     companion object {
         const val TAG = "AddScoresFragment"
+    }
+
+    init {
+        this.session = session
+        this.scores = scores
+        this.endId = endId
     }
 
     private lateinit var viewModel: SharedViewModel
@@ -35,7 +45,9 @@ class AddScoresFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
-        scores = mutableListOf()
+        if (scores.isNullOrEmpty()) {
+            scores = mutableListOf()
+        }
         updateScore()
         setupClickListeners(view)
         updateButtonDisplay(view)
@@ -53,9 +65,12 @@ class AddScoresFragment : DialogFragment() {
         val submitButton = view.findViewById<Button>(R.id.submitButton)
         submitButton.setOnClickListener {
             submitButton.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
-            if (scores.isNotEmpty()) {
-                scores.sortDescending()
-                viewModel.sendScores(scores)
+            if (scores!!.isNotEmpty()) {
+                scores!!.sortDescending()
+                val endScores = EndScores()
+                endScores.id= if(this.endId != null) { this.endId } else { 999990000 + session.ends+1 }
+                endScores.endScores=scores
+                viewModel.sendScores(endScores)
             }
             dismiss()
         }
@@ -67,18 +82,20 @@ class AddScoresFragment : DialogFragment() {
     }
 
     private fun addScore(score: Int) {
-        scores.add(score)
+        scores!!.add(score)
         updateScore()
     }
 
     private fun removeScore(dummy: Int = 0) {
-        scores.removeLast()
-        updateScore()
+        if (scores!!.isNotEmpty()) {
+            scores!!.removeLast()
+            updateScore()
+        }
     }
 
     private fun updateScore() {
-        totalScore = scores.sumOf { it }
-        shots = scores.size
+        totalScore = scores!!.sumOf { it }
+        shots = scores!!.size
         outputTextView = scores.toString()
         view?.findViewById<TextView>(R.id.scoresText1)?.text =
             ("${resources.getString(R.string.arrows)} [$shots] ${resources.getString(R.string.score)} [$totalScore]")
