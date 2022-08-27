@@ -72,8 +72,10 @@ class AddScoresFragment : DialogFragment() {
     }
 
     private fun removeScore(dummy: Int = 0) {
-        scores.removeLast()
-        updateScore()
+        if (scores.isNotEmpty()) {
+            scores.removeLast()
+            updateScore()
+        }
     }
 
     private fun updateScore() {
