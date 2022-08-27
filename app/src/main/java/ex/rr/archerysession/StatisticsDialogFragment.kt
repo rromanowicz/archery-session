@@ -95,7 +95,7 @@ class StatisticsDialogFragment(
 
         val combinedScores: MutableList<MutableList<Int>> = mutableListOf()
         lastXSessions.forEach {
-            combinedScores.addAll(it.session.scores)
+            combinedScores.addAll(it.session.scoreMap.values)
         }
         val combinedArrows: Int = combinedScores.sumOf { it.size }
 
@@ -107,12 +107,12 @@ class StatisticsDialogFragment(
 
 
     private fun drawSessionCharts(session: Session) {
-        drawBarChart(session.arrows, getScoreOccurrence(session.scores))
-        drawPieChart(session.arrows, getScoreOccurrence(session.scores))
-        drawLineChart(session.scores)
+        drawBarChart(session.arrows, getScoreOccurrence(session.scoreMap.values))
+        drawPieChart(session.arrows, getScoreOccurrence(session.scoreMap.values))
+        drawLineChart(session.scoreMap.values)
     }
 
-    private fun drawLineChart(scores: MutableList<MutableList<Int>>) {
+    private fun drawLineChart(scores: Collection<MutableList<Int>>) {
         val anyChartView: AnyChartView = binding.lineChart
         APIlib.getInstance().setActiveAnyChartView(anyChartView)
 
@@ -154,7 +154,7 @@ class StatisticsDialogFragment(
             val data: MutableList<DataEntry> = ArrayList()
             chart.addSeries(set)
             line.name(it.session.startDate.toString())
-            getEndAvgs(it.session.scores).forEach { (key, value) ->
+            getEndAvgs(it.session.scoreMap.values).forEach { (key, value) ->
                 data.add(ValueDataEntry(key, value))
             }
             line.data(data)
@@ -220,13 +220,13 @@ class StatisticsDialogFragment(
         anyChartView.setChart(chart)
     }
 
-    private fun getScoreOccurrence(scores: MutableList<MutableList<Int>>): Map<Int, Int> {
+    private fun getScoreOccurrence(scores: Collection<MutableList<Int>>): Map<Int, Int> {
         val scoreList: MutableList<Int> = mutableListOf()
         scores.forEach(scoreList::addAll)
         return scoreList.groupingBy { it }.eachCount().toSortedMap()
     }
 
-    private fun getEndAvgs(scores: MutableList<MutableList<Int>>): Map<Number, Number> {
+    private fun getEndAvgs(scores: Collection<MutableList<Int>>): Map<Number, Number> {
         var counter = 1
         val mMap: MutableMap<Int, Int> = mutableMapOf()
 
