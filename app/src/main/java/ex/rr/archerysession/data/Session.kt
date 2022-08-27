@@ -13,8 +13,10 @@ data class Session(
     var ends: Int = 0,
     @SerializedName("numberOfArrows")
     var arrows: Int = 0,
-    @SerializedName("endScores")
+    @SerializedName("scoreMap")
     var scoreMap: MutableMap<Int, MutableList<Int>> = mutableMapOf(),
+    @SerializedName("endScores")
+    var scores: MutableList<MutableList<Int>> = mutableListOf(),
     @SerializedName("bow")
     var bow: Bow? = null,
     @SerializedName("target")
@@ -23,6 +25,15 @@ data class Session(
     var distance: String? = null
 
 ) {
+
+    fun mapScoresToScoreMap() {
+        if (scores.isNotEmpty() && scoreMap.isEmpty()) {
+            scores.forEach {
+                var id: Int = scoreMap.size
+                scoreMap[++id] = it
+            }
+        }
+    }
 
     fun addEndScores(endScores: EndScores) {
         if (endScores.endScores!!.isNotEmpty()) {

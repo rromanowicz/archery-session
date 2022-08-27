@@ -112,6 +112,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
                     val jsonIndex = cursor.getColumnIndex(SESSION_COl)
                     val sessionJson = cursor.getString(jsonIndex)
                     val session = Gson().fromJson(sessionJson, Session::class.java)
+                    session.mapScoresToScoreMap()
                     sessionList.add(DbSession(id, session))
                 } catch (e: Exception) {
                     Log.e(this::class.java.name, e.message!!)

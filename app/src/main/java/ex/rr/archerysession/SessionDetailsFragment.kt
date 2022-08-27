@@ -112,7 +112,7 @@ class SessionDetailsFragment(sessionId: Long? = null, buttonsHidden: Boolean? = 
         binding.target.text =
             lastSession.session.target ?: ""
         binding.distance.text =
-            if (lastSession.session.distance != null) lastSession.session.distance + "m" else ""
+            if (lastSession.session.distance != null) lastSession.session.distance else ""
         binding.endCount.text =
             lastSession.session.ends.toString()
         binding.arrowCount.text =
